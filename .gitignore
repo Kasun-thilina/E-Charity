@@ -2,12 +2,14 @@
 .gradle
 /local.properties
 /.idea/caches
+/.idea
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
+google-services.json
 /build
 /captures
 .externalNativeBuild
