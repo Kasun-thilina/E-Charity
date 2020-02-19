@@ -16,8 +16,15 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 
-    <style name="AppTheme.Auth">
+    <style name="AppTheme.Login">
         <item name="android:windowBackground">@drawable/bg_toolbar</item>
+    </style>
+
+    <style name="AppToolbar">
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@color/colorPurple</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
     </style>
 
     <style name="editTextStyle">

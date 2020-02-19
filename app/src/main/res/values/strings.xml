@@ -12,4 +12,6 @@
     <string name="label_first_name">First Name</string>
     <string name="label_last_name">Last Name</string>
     <string name="label_confirm_pwd">Confirm Password</string>
+    <string name="label_already_account">Already have an account?</string>
+
 </resources>

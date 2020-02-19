@@ -32,7 +32,7 @@ class LoginActivity : BaseActivity() {
         }*/
     }
 
-    @OnClick(R.id.tv_q_signup)
+    @OnClick(R.id.tv_signup)
     internal fun click(view: View) {
         when (view.id) {
             R.id.tv_signup -> {
