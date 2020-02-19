@@ -41,6 +41,8 @@
         <item name="android:gravity">center</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:paddingEnd">48dp</item>
+        <item name="android:paddingStart">48dp</item>
         <item name="android:elevation" tools:targetApi="lollipop">1dp</item>
     </style>
 
