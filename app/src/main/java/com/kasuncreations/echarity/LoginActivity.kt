@@ -32,11 +32,14 @@ class LoginActivity : BaseActivity() {
         }*/
     }
 
-    @OnClick(R.id.tv_signup)
+    @OnClick(R.id.tv_signup, R.id.btn_login)
     internal fun click(view: View) {
         when (view.id) {
             R.id.tv_signup -> {
                 startActivity(Intent(this, SignUpActivity::class.java))
+            }
+            R.id.btn_login -> {
+                startActivity(Intent(this, MainActivity::class.java))
             }
 
         }

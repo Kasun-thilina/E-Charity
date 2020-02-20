@@ -15,6 +15,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppThemeMaterial" />
+        <activity
             android:name=".SignUpActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
