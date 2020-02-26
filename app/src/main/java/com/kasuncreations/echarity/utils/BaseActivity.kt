@@ -1,4 +1,4 @@
-package com.kasuncreations.echarity
+package com.kasuncreations.echarity.utils
 
 import android.os.Build
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.kasuncreations.echarity.R
 
 /**
  * Created By Kasun Thilina 29/02/2020
@@ -18,7 +19,10 @@ abstract class BaseActivity : AppCompatActivity() {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor =
-                ContextCompat.getColor(this, R.color.colorPurple)
+                ContextCompat.getColor(
+                    this,
+                    R.color.colorPurple
+                )
         }
     }
 

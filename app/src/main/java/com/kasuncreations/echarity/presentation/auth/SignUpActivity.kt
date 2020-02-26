@@ -1,6 +1,8 @@
-package com.kasuncreations.echarity
+package com.kasuncreations.echarity.presentation.auth
 
 import android.os.Bundle
+import com.kasuncreations.echarity.R
+import com.kasuncreations.echarity.utils.BaseActivity
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : BaseActivity() {

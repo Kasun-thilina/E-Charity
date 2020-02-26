@@ -1,7 +1,8 @@
-package com.kasuncreations.echarity
+package com.kasuncreations.echarity.presentation.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.kasuncreations.echarity.R
 
 class MainActivity : AppCompatActivity() {
 

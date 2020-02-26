@@ -1,1 +1,48 @@
-
+{
+  "project_info": {
+    "project_number": "696082522770",
+    "firebase_url": "https://e-charity.firebaseio.com",
+    "project_id": "e-charity",
+    "storage_bucket": "e-charity.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696082522770:android:af3c491b5b4fb32832fc4b",
+        "android_client_info": {
+          "package_name": "com.kasuncreations.echarity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696082522770-bfd34tn9tg1fjepjpimtl1lta2r4lqef.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kasuncreations.echarity",
+            "certificate_hash": "1320a07961ca8d90748592f0323735414373e8cb"
+          }
+        },
+        {
+          "client_id": "696082522770-6nq38h95jaievmbchi3o0mmtph95ersg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWq9AhocDxhFER53Q79FZTR6SUGmKYcbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696082522770-6nq38h95jaievmbchi3o0mmtph95ersg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-package com.kasuncreations.echarity
+package com.kasuncreations.echarity.utils
 
 import android.content.Context
 import android.widget.Toast

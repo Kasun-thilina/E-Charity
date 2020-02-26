@@ -15,16 +15,16 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.home.MainActivity"
             android:theme="@style/AppThemeMaterial" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".presentation.auth.SignUpActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Login"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".presentation.auth.LoginActivity"
             android:theme="@style/AppTheme.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
