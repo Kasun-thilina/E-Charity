@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".data.firebase.FirebaseApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,15 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".presentation.profile.ProfileFragment" />
         <activity
-            android:name=".presentation.home.MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:theme="@style/AppThemeMaterial" />
         <activity
             android:name=".presentation.auth.SignUpActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Login"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.auth.LoginActivity"
             android:theme="@style/AppTheme.Login">

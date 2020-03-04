@@ -8,6 +8,8 @@
     <string name="menu_chat">Chat</string>
 
     <string name="label_sign_up">Sign Up</string>
+    <string name="label_sign_out">Sign Out</string>
+
 
     <string name="label_login_to_account">Login to account</string>
     <string name="label_email">Email</string>
@@ -19,5 +21,6 @@
     <string name="label_last_name">Last Name</string>
     <string name="label_confirm_pwd">Confirm Password</string>
     <string name="label_already_account">Already have an account?</string>
+
 
 </resources>

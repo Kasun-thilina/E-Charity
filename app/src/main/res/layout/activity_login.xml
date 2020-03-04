@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.kasuncreations.echarity.presentation.auth.AuthViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -40,6 +49,7 @@
                     android:minHeight="48dp"
                     android:layout_marginTop="32dp"
                     style="@style/editTextStyle"
+                    android:text="@={viewModel.email}"
                     android:hint="@string/label_email"
                     android:inputType="textEmailAddress" />
 
@@ -55,6 +65,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/editTextStyle"
+                        android:text="@={viewModel.password}"
                         android:hint="@string/label_password"
                         android:inputType="textPassword" />
 
@@ -65,6 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/PrimaryButtonStyle"
+                    android:onClick="@{()->viewModel.login()"
                     android:layout_gravity="center"
                     android:layout_marginTop="32dp"
                     android:layout_marginBottom="16dp"
@@ -108,6 +120,7 @@
             android:focusable="true"
             android:padding="8dp"
             android:text="@string/label_sign_up"
+            android:onClick="@{(v)-> viewModel.goToSignUp(v)}"
             android:textColor="@color/colorPurple"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -126,7 +139,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

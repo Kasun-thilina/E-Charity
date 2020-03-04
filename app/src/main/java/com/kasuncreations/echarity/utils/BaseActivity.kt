@@ -1,8 +1,10 @@
 package com.kasuncreations.echarity.utils
 
+import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -13,8 +15,16 @@ import com.kasuncreations.echarity.R
  * This abstract class is to hold re used functionalities
  */
 abstract class BaseActivity : AppCompatActivity() {
+    private var progress: Dialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        progress = Dialog(this, R.style.ProgressbarStyle).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setContentView(R.layout.item_progress)
+            setCancelable(false)
+            setCanceledOnTouchOutside(false)
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -23,6 +33,22 @@ abstract class BaseActivity : AppCompatActivity() {
                     this,
                     R.color.colorPurple
                 )
+        }
+    }
+
+    fun showProgress() {
+        progress?.let {
+            if (!it.isShowing) {
+                it.show()
+            }
+        }
+    }
+
+    fun hideProgress() {
+        progress?.let {
+            if (it.isShowing) {
+                progress?.dismiss()
+            }
         }
     }
 

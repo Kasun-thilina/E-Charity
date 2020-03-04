@@ -1,13 +1,13 @@
-package com.kasuncreations.echarity.presentation.home
+package com.kasuncreations.echarity.presentation.profile
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kasuncreations.echarity.R
 
-class MainActivity : AppCompatActivity() {
+class ProfileFragment : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.fragment_profile)
     }
 }
