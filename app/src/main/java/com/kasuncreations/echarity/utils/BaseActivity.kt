@@ -34,6 +34,8 @@ abstract class BaseActivity : AppCompatActivity() {
                     R.color.colorPurple
                 )
         }
+
+
     }
 
     fun showProgress() {

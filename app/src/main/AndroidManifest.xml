@@ -28,7 +28,8 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.auth.LoginActivity"
-            android:theme="@style/AppTheme.Login">
+            android:theme="@style/AppTheme.Login"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

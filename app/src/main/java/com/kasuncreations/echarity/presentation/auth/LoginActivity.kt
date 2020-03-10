@@ -12,6 +12,7 @@ import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.databinding.ActivityLoginBinding
 import com.kasuncreations.echarity.presentation.main.MainActivity
 import com.kasuncreations.echarity.utils.BaseActivity
+import com.kasuncreations.echarity.utils.hideKeyboard
 import com.kasuncreations.echarity.utils.showToastLong
 import kotlinx.android.synthetic.main.activity_login.*
 import org.kodein.di.KodeinAware
@@ -24,6 +25,7 @@ class LoginActivity : BaseActivity(), AuthListner, KodeinAware {
     override val kodein by kodein()
     private val factory: AuthViewModelFactory by instance()
     private lateinit var viewModel: AuthViewModel
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +37,7 @@ class LoginActivity : BaseActivity(), AuthListner, KodeinAware {
 
     private fun init() {
         //bottom_sheet.visibility = View.GONE
-        val binding: ActivityLoginBinding =
+        binding =
             DataBindingUtil.setContentView(this, R.layout.activity_login)
         viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
         //.of(this,factory).get(AuthViewModel::class.java)
@@ -43,8 +45,10 @@ class LoginActivity : BaseActivity(), AuthListner, KodeinAware {
         viewModel.authListner = this
 
         btn_login.setOnClickListener {
-            viewModel.login()
+            //viewModel.login()
         }
+
+
     }
 
     @OnClick(
@@ -54,13 +58,17 @@ class LoginActivity : BaseActivity(), AuthListner, KodeinAware {
     internal fun click(view: View) {
         when (view.id) {
             R.id.tv_signup -> {
-                startActivity(Intent(this, SignUpActivity::class.java))
+                // startActivity(Intent(this, SignUpActivity::class.java))
             }
             R.id.btn_login -> {
-                startActivity(Intent(this, MainActivity::class.java))
+                // startActivity(Intent(this, MainActivity::class.java))
             }
 
         }
+    }
+
+    fun hideKeyBoard(layout: View) {
+        hideKeyboard()
     }
 
     override fun onStarted() {
@@ -69,6 +77,7 @@ class LoginActivity : BaseActivity(), AuthListner, KodeinAware {
 
     override fun onSuccess() {
         hideProgress()
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     override fun onError(msg: String) {

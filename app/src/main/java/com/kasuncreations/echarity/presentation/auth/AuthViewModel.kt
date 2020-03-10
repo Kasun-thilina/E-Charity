@@ -9,6 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
+
 /**
  * Created by Kasun Thilina on 26 February 2020
  * kasun.thilina.t@gmail.com
@@ -26,10 +27,13 @@ class AuthViewModel(
 
     var email: String? = null
     var password: String? = null
+    var firstName: String? = null
+    var lastName: String? = null
 
     var authListner: AuthListner? = null
 
     private val disposables = CompositeDisposable()
+
 
     val user by lazy {
         repository.getCurrentUser()
@@ -61,14 +65,15 @@ class AuthViewModel(
 
     fun signUp() {
         //validation
-        if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
-            authListner!!.onError("Please try again. Invalid Email or Password!")
+        if (email.isNullOrEmpty()) {
+            authListner!!.onError("Please try again. Invalid Email Address!")
+
             return
         }
 
         authListner?.onStarted()
 
-        val disposable = repository.signUp(email!!, password!!)
+        val disposable = repository.signUp(email!!, password!!, firstName!!, lastName!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -95,6 +100,10 @@ class AuthViewModel(
         }
     }
 
+    fun validation(): Boolean {
+        val isEmail = email
+        return true
+    }
 
     override fun onCleared() {
         super.onCleared()
