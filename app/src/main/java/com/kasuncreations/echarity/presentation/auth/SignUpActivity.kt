@@ -41,6 +41,7 @@ class SignUpActivity : BaseActivity(), AuthListner, KodeinAware {
         super.onStart()
     }
 
+
     fun onSignUp(button: View) {
         val password = binding.etSignUpUserPassword.text!!.trim()
         val confirmPW = binding.etSignUpUserConfirmPassword.text!!.trim()

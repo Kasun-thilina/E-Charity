@@ -64,15 +64,7 @@ class AuthViewModel(
     }
 
     fun signUp() {
-        //validation
-        if (email.isNullOrEmpty()) {
-            authListner!!.onError("Please try again. Invalid Email Address!")
-
-            return
-        }
-
         authListner?.onStarted()
-
         val disposable = repository.signUp(email!!, password!!, firstName!!, lastName!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -84,7 +76,6 @@ class AuthViewModel(
                     authListner?.onError(it.message!!)
                 }
             )
-
         disposables.add(disposable)
     }
 
@@ -98,6 +89,10 @@ class AuthViewModel(
         Intent(view.context, LoginActivity::class.java).also {
             view.context.startActivity(it)
         }
+    }
+
+    fun logOut() {
+        repository.logout()
     }
 
     fun validation(): Boolean {

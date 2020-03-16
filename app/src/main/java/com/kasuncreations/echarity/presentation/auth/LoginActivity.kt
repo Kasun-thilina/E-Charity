@@ -45,7 +45,7 @@ class LoginActivity : BaseActivity(), AuthListner, KodeinAware {
         viewModel.authListner = this
 
         btn_login.setOnClickListener {
-            //viewModel.login()
+            viewModel.login()
         }
 
 
@@ -93,5 +93,6 @@ class LoginActivity : BaseActivity(), AuthListner, KodeinAware {
             }
         }
     }
+
 
 }
