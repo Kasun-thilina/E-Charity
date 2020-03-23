@@ -13,7 +13,6 @@ import com.kasuncreations.echarity.presentation.auth.AuthViewModel
 import com.kasuncreations.echarity.presentation.auth.AuthViewModelFactory
 import com.kasuncreations.echarity.presentation.auth.LoginActivity
 import com.kasuncreations.echarity.utils.BaseFragment
-import com.kasuncreations.echarity.utils.alert
 import com.kasuncreations.echarity.utils.dialog.alertDialog
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import org.kodein.di.Kodein

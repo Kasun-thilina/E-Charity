@@ -1,10 +1,10 @@
 package com.kasuncreations.echarity.presentation.main
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.kasuncreations.echarity.R
+import com.kasuncreations.echarity.presentation.chat.ChatFragment
 import com.kasuncreations.echarity.presentation.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -25,6 +25,11 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.fragment_container, ProfileFragment.newInstance(), "profile")
                 .commit()
         }
+        nav_btn_chat.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ChatFragment.newInstance(), "chat")
+                .commit()
+        }
 
         // bottomAppBar.replaceMenu(R.menu.app_bar_menu)
         /*bottomAppBar.setOnMenuItemClickListener { item ->
@@ -40,17 +45,7 @@ class MainActivity : AppCompatActivity() {
         }*/
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_btn_profile -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, ProfileFragment.newInstance(), "profile")
-                    .commit()
-            }
-        }
 
-        return super.onOptionsItemSelected(item)
-    }
 
 
 }
