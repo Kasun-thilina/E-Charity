@@ -26,7 +26,7 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 
-    <style name="AppTheme.Login">
+    <style name="AppTheme.Login" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/bg_toolbar</item>
     </style>
 

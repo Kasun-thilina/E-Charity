@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import co.intentservice.chatui.ChatView
 import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.utils.BaseFragment
 import io.kommunicate.KmConversationBuilder
@@ -16,7 +15,6 @@ import io.kommunicate.callbacks.KmCallback
 
 class ChatFragment : BaseFragment() {
 
-    var chatView: ChatView? = null
     var btnAIChat: Button? = null
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var mLayoutManager: LinearLayoutManager
@@ -52,7 +50,7 @@ class ChatFragment : BaseFragment() {
 
         btnAIChat?.setOnClickListener {
             Kommunicate.init(context, getString(R.string.KOMMUNICATE_APP_ID))
-            showProgress()
+            //showProgress()
             KmConversationBuilder(context)
                 .launchConversation(object : KmCallback {
                     override fun onSuccess(message: Any) {
@@ -61,7 +59,7 @@ class ChatFragment : BaseFragment() {
 
                     override fun onFailure(error: Any) {
                         println("Failure : $error")
-                        hideProgress()
+                        //  hideProgress()
                     }
                 })
         }
@@ -75,12 +73,12 @@ class ChatFragment : BaseFragment() {
 
     override fun onPause() {
         super.onPause()
-        hideProgress()
+        //hideProgress()
     }
 
     override fun onResume() {
         super.onResume()
-        hideProgress()
+        //  hideProgress()
     }
 
 }

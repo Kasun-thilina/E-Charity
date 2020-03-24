@@ -50,8 +50,7 @@ dependencies {
     //progressbar
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
-    //ChatUI
-    implementation 'com.github.timigod:android-chat-ui:v0.1.4'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-beta01'
 
     //Firebase
     implementation 'com.google.firebase:firebase-auth:19.2.0'
