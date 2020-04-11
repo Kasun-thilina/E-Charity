@@ -1,26 +1,17 @@
 <resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
 
-    <!--    radious values-->
-    <dimen name="et_round_corner_radius">100dp</dimen>
-    <dimen name="et_square_corner_radius">5dp</dimen>
-    <dimen name="btn_corner_radios">100dp</dimen>
+    <dimen name="app_margin_ex_small">8dp</dimen>
+    <dimen name="text_margin_small">4dp</dimen>
+    <dimen name="app_margin_ex_large">24dp</dimen>
 
-
-    <!--    width values-->
-    <dimen name="cl_dialog_container_min_width">300dp</dimen>
-    <dimen name="btn_border_width">1dp</dimen>
-
-
-    <!--    margin values-->
-    <dimen name="dialogInfoMessageTextView_margin_top">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-
-
-    <!--    padding values-->
-    <dimen name="cl_dialog_container_padding">16dp</dimen>
-
-    <!--    elevation values-->
-    <dimen name="cl_dialog_container_elevation">8dp</dimen>
-
+    <dimen name="extra_small_text_size">10sp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
+    <dimen name="medium_text_size">14sp</dimen>
+    <dimen name="medium_large_text_size">15sp</dimen>
+    <dimen name="large_text_size">16sp</dimen>
+    <dimen name="pre_large_text_size">17sp</dimen>
+    <dimen name="extra_large_text_size">20sp</dimen>
+    <dimen name="Premium_large_text_size">64sp</dimen>
 
 </resources>

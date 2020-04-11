@@ -87,4 +87,13 @@
         <item name="android:elevation" tools:targetApi="lollipop">1dp</item>
     </style>
 
+    <style name="TitleTextBlackStyle">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/medium_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
+    </style>
+
+
 </resources>

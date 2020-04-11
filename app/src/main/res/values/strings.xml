@@ -10,6 +10,7 @@
 
     <string name="label_sign_up">Sign Up</string>
     <string name="label_sign_out">Sign Out</string>
+    <string name="label_add_post">Add New Post</string>
 
 
     <string name="btn_chatbot">Ask Your Questions From the Chatbot!</string>
@@ -27,6 +28,16 @@
     <string name="label_already_account">Already have an account?</string>
 
     <string name="msg_sign_out">Are you sure you want to sign out?</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_post">Title</string>
+    <string name="title_category">Category</string>
+    <string name="title_description">Description</string>
+    <string name="title_location">Location</string>
+    <string name="title_image">Post Image(Optional)</string>
+
+    <string name="hint_post">Enter Your Title Here</string>
+    <string name="hint_description_victim">Please explain more about your requirements and about the help you need in detail here</string>
+    <string name="hint_description_donor">Please explain more about your donation scale, who you are going to donate, etc in here</string>
 
 
 </resources>

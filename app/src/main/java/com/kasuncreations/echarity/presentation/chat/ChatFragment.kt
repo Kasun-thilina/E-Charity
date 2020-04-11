@@ -63,12 +63,6 @@ class ChatFragment : BaseFragment() {
                     }
                 })
         }
-
-
-        /*chatView?.setOnSentMessageListener {
-
-            true
-        }*/
     }
 
     override fun onPause() {
