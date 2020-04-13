@@ -76,10 +76,14 @@ dependencies {
 
     //Maps
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.libraries.places:places:2.2.0'
 
 
     //Kommunicate
     implementation 'io.kommunicate.sdk:kommunicateui:1.9.6'
+
+    //uCrop
+    implementation 'com.github.yalantis:ucrop:2.2.4'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

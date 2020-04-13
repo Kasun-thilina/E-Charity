@@ -138,7 +138,7 @@
                 android:minHeight="100dp"
                 android:src="@drawable/ic_placeholder_add_image"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.23"
+                app:layout_constraintHeight_percent="0.25"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_image" />
@@ -155,6 +155,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image" />
 
+            <TextView
+                android:id="@+id/et_location"
+                style="@style/editTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:ems="10"
+                android:hint="@string/hint_location"
+                android:inputType="none"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_location" />
+
             <com.google.android.gms.maps.MapView
                 android:id="@+id/fl_mapview"
                 android:layout_width="0dp"
@@ -164,13 +180,14 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
-                android:clickable="true"
-                android:focusable="true"
+                android:visibility="gone"
                 android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:focusable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent="0.20"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_location"
+                app:layout_constraintTop_toBottomOf="@+id/et_location"
                 app:layout_constraintBottom_toTopOf="@id/btn_addpost" />
 
             <Button
@@ -179,7 +196,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="24dp"
-                android:text="@string/label_add_post"
+                android:text="@string/btn_label_add_post"
                 app:layout_constraintTop_toBottomOf="@id/fl_mapview"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />

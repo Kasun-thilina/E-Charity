@@ -11,5 +11,6 @@
     <color name="colorBlue">#323FA3</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGray">#636363</color>
+    <color name="colorGrayDisabled">#D7D7D7</color>
 
 </resources>

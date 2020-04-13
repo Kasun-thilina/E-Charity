@@ -10,10 +10,11 @@
 
     <string name="label_sign_up">Sign Up</string>
     <string name="label_sign_out">Sign Out</string>
-    <string name="label_add_post">Add New Post</string>
+    <string name="label_location_picker">Select a location</string>
 
-
-    <string name="btn_chatbot">Ask Your Questions From the Chatbot!</string>
+    <string name="btn_label_done">Done</string>
+    <string name="btn_label_add_post">Add New Post</string>
+    <string name="btn_label_chatbot">Ask Your Questions From the Chatbot!</string>
 
 
     <string name="label_login_to_account">Login to account</string>
@@ -28,6 +29,9 @@
     <string name="label_already_account">Already have an account?</string>
 
     <string name="msg_sign_out">Are you sure you want to sign out?</string>
+    <string name="msg_gps_dialog_title">Location Service</string>
+    <string name="msg_gps_provider">GPS need to be turned on for the app to continue</string>
+
     <string name="title_activity_maps">Map</string>
     <string name="title_post">Title</string>
     <string name="title_category">Category</string>
@@ -36,8 +40,10 @@
     <string name="title_image">Post Image(Optional)</string>
 
     <string name="hint_post">Enter Your Title Here</string>
+    <string name="hint_location">Tap to add location</string>
     <string name="hint_description_victim">Please explain more about your requirements and about the help you need in detail here</string>
     <string name="hint_description_donor">Please explain more about your donation scale, who you are going to donate, etc in here</string>
+    <string name="title_activity_location_picker">Map</string>
 
 
 </resources>
