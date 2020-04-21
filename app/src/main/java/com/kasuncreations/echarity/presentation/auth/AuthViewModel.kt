@@ -30,7 +30,7 @@ class AuthViewModel(
     var firstName: String? = null
     var lastName: String? = null
 
-    var authListner: AuthListner? = null
+    var authListner: Listner? = null
 
     private val disposables = CompositeDisposable()
 

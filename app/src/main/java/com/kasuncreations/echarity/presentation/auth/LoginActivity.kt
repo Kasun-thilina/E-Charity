@@ -19,7 +19,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
-class LoginActivity : BaseActivity(), AuthListner, KodeinAware {
+class LoginActivity : BaseActivity(), Listner, KodeinAware {
 
     private lateinit var auth: FirebaseAuth
     override val kodein by kodein()

@@ -2,6 +2,7 @@ package com.kasuncreations.echarity.utils
 
 object CONSTANTS {
     const val USER_DATA = "users"
+    const val POSTS = "posts"
     const val LOCATION_NAME = "location_name"
     const val LOCATION_COORDINATES = "location_coordinates"
 

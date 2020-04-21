@@ -12,6 +12,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.core.content.FileProvider
+import androidx.lifecycle.ViewModelProviders
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -21,22 +22,28 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.kasuncreations.echarity.R
+import com.kasuncreations.echarity.data.models.Post
+import com.kasuncreations.echarity.presentation.auth.Listner
 import com.kasuncreations.echarity.presentation.map.LocationPickerActivity
-import com.kasuncreations.echarity.utils.BaseActivity
-import com.kasuncreations.echarity.utils.CONSTANTS
+import com.kasuncreations.echarity.utils.*
 import com.kasuncreations.echarity.utils.CONSTANTS.LOCATION_NAME
 import com.kasuncreations.echarity.utils.CONSTANTS.REQUEST_CODE_CAMERA
 import com.kasuncreations.echarity.utils.CONSTANTS.REQUEST_CODE_CAMERA_PERMISSION
 import com.kasuncreations.echarity.utils.CONSTANTS.REQUEST_CODE_GALLERY
 import com.kasuncreations.echarity.utils.CONSTANTS.REQUEST_CODE_LOCATION_PICKER
 import com.kasuncreations.echarity.utils.CONSTANTS.REQUEST_CODE_WRITE_PERMISSION
-import com.kasuncreations.echarity.utils.isPermissionGranted
-import com.kasuncreations.echarity.utils.requestPermission
 import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_add_post.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 import java.io.File
 
-class AddPostActivity : BaseActivity(), OnMapReadyCallback {
+class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner {
+
+    override val kodein by kodein()
+    private val factory: PostViewModelFactory by instance()
+    private lateinit var viewModel: PostViewModel
 
     private lateinit var mMap: GoogleMap
     private lateinit var mMapView: MapView
@@ -53,6 +60,9 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback {
         mMapView = findViewById(R.id.fl_mapview)
         mMapView.onCreate(savedInstanceState)
         mMapView.getMapAsync(this)
+
+        viewModel = ViewModelProviders.of(this, factory).get(PostViewModel::class.java)
+        viewModel.listner = this
     }
 
     private fun init() {
@@ -60,6 +70,8 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback {
         val aa = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner_category!!.adapter = aa
+        println(System.currentTimeMillis() / 1000)
+
     }
 
     private fun selectImage() {
@@ -104,7 +116,7 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     @OnClick(
-        R.id.iv_image, R.id.et_location
+        R.id.iv_image, R.id.et_location, R.id.btn_addpost
     )
     internal fun click(view: View) {
         when (view.id) {
@@ -114,6 +126,13 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback {
             R.id.et_location -> {
                 val intent = Intent(this, LocationPickerActivity::class.java)
                 startActivityForResult(intent, REQUEST_CODE_LOCATION_PICKER)
+            }
+            R.id.btn_addpost -> {
+                val post = Post()
+                post.description = "test"
+                post.tittle = "First Post"
+                viewModel.savePost(post)
+
             }
         }
     }
@@ -209,7 +228,6 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
     }
 
     override fun onDestroy() {
@@ -231,6 +249,20 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback {
         super.onResume()
         mMapView.onResume()
 
+    }
+
+    override fun onStarted() {
+        showProgress()
+    }
+
+    override fun onSuccess() {
+        hideProgress()
+        finish()
+    }
+
+    override fun onError(msg: String) {
+        hideProgress()
+        showToastLong(msg)
     }
 
 }
