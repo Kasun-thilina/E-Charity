@@ -48,7 +48,7 @@
 
         <activity
             android:name=".presentation.map.LocationPickerActivity"
-            android:label="@string/title_activity_location_picker"></activity>
+            android:label="@string/title_activity_location_picker" />
         <activity
             android:name=".presentation.map.MapsActivity"
             android:label="@string/title_activity_maps" />
@@ -57,7 +57,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".presentation.post.AddPostActivity" />
+        <activity
+            android:name=".presentation.post.AddPostActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+
+            />
         <activity android:name=".presentation.profile.ProfileFragment" />
         <activity
             android:name=".presentation.main.MainActivity"

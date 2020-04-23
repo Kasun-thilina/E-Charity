@@ -1,6 +1,5 @@
 package com.kasuncreations.echarity.data.models
 
-import android.media.Image
 import com.google.android.gms.maps.model.LatLng
 
 /**
@@ -14,6 +13,7 @@ data class Post(
     var postId: Long? = null,
     var tittle: String? = null,
     var description: String? = null,
+    var category: String? = null,
     var latLng: LatLng? = null,
-    var image: Image? = null
+    var imageUri: String? = null
 )

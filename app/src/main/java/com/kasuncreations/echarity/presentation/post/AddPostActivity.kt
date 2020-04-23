@@ -49,6 +49,7 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
     private lateinit var mMapView: MapView
     private var file: File? = null
     private var fileUri: Uri? = null
+    private var location: LatLng? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_post)
@@ -116,7 +117,7 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
     }
 
     @OnClick(
-        R.id.iv_image, R.id.et_location, R.id.btn_addpost
+        R.id.iv_image, R.id.et_location, R.id.btn_addpost, R.id.add_post_parent
     )
     internal fun click(view: View) {
         when (view.id) {
@@ -128,13 +129,34 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
                 startActivityForResult(intent, REQUEST_CODE_LOCATION_PICKER)
             }
             R.id.btn_addpost -> {
-                val post = Post()
-                post.description = "test"
-                post.tittle = "First Post"
-                viewModel.savePost(post)
-
+                verifyInputs()
+            }
+            R.id.add_post_parent -> {
+                hideKeyboard()
             }
         }
+    }
+
+    private fun verifyInputs() {
+        if (et_title.text.isNullOrEmpty()) {
+            et_title.error = "Title Should Not Be Empty!"
+            return
+        }
+        if (et_description.text.isNullOrEmpty()) {
+            et_description.error = "Description Should Not Be Empty!"
+            return
+        }
+        if (et_location.text.isNullOrEmpty()) {
+            et_location.error = "You Should Select A Location!"
+            return
+        }
+        val post = Post()
+        post.description = et_description.text.toString()
+        post.tittle = et_title.text.toString()
+        post.latLng = location
+        post.category = spinner_category.selectedItemId.toString()
+        post.imageUri = ""
+        viewModel.savePost(post)
     }
 
     private fun pickFromGallery() {
@@ -196,7 +218,8 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
                     }
                     REQUEST_CODE_LOCATION_PICKER -> {
                         et_location.text = data.getStringExtra(LOCATION_NAME)
-                        setLocation(data.getParcelableExtra(CONSTANTS.LOCATION_COORDINATES)!!)
+                        location = data.getParcelableExtra(CONSTANTS.LOCATION_COORDINATES)
+                        setLocation(location!!)
                     }
                 }
             }
