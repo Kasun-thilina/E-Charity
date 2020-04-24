@@ -153,7 +153,8 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
         val post = Post()
         post.description = et_description.text.toString()
         post.tittle = et_title.text.toString()
-        post.latLng = location
+        post.latitude = location!!.latitude.toLong()
+        post.longtitude = location!!.longitude.toLong()
         post.category = spinner_category.selectedItemId.toString()
         post.imageUri = ""
         viewModel.savePost(post)

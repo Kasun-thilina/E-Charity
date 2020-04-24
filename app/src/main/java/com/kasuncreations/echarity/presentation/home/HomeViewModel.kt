@@ -1,21 +1,23 @@
 package com.kasuncreations.echarity.presentation.home
 
-import android.app.Application
-import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.kasuncreations.echarity.data.repository.UserRepository
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.kasuncreations.echarity.data.firebase.FirebaseQueryLiveData
 
-class HomeViewModel(
-    private val repository: UserRepository,
-    application: Application
-) : ViewModel() {
+class HomeViewModel : ViewModel() {
 
-    val user by lazy {
-        repository.getCurrentUser()
+    private val firebaseDatabase: FirebaseDatabase by lazy {
+        FirebaseDatabase.getInstance()
     }
 
-    fun logOut(view: View) {
-        repository.logout()
-        //view.context.startL
+    private val postsReference: DatabaseReference = firebaseDatabase.getReference("posts")
+    private val liveData = FirebaseQueryLiveData(postsReference)
+
+    fun getDataSnapshotLiveData(): LiveData<DataSnapshot?>? {
+        return liveData
     }
+
 }

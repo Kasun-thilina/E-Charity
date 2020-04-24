@@ -1,7 +1,5 @@
 package com.kasuncreations.echarity.data.models
 
-import com.google.android.gms.maps.model.LatLng
-
 /**
  * Created by Kasun Thilina on 13th April 2020
  * @author kasun.thilina.t@gmail.com
@@ -14,6 +12,7 @@ data class Post(
     var tittle: String? = null,
     var description: String? = null,
     var category: String? = null,
-    var latLng: LatLng? = null,
+    var latitude: Long? = null,
+    var longtitude: Long? = null,
     var imageUri: String? = null
 )

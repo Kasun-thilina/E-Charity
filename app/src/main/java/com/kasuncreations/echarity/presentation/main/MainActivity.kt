@@ -3,7 +3,6 @@ package com.kasuncreations.echarity.presentation.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -13,8 +12,9 @@ import com.kasuncreations.echarity.presentation.home.HomeFragment
 import com.kasuncreations.echarity.presentation.map.MapFragment
 import com.kasuncreations.echarity.presentation.post.AddPostActivity
 import com.kasuncreations.echarity.presentation.profile.ProfileFragment
+import com.kasuncreations.echarity.utils.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var bottomAppBar: BottomAppBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,11 +22,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
         setUpBottomNavigation()
+
     }
 
     private fun setUpBottomNavigation() {
         bottomAppBar = findViewById(R.id.bottom_nav)
         setSupportActionBar(bottomAppBar)
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, HomeFragment.newInstance(), "home")
+            .commit()
         // bottomAppBar.replaceMenu(R.menu.app_bar_menu)
         /*bottomAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
