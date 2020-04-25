@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
     implementation 'com.google.firebase:firebase-database-ktx:19.2.1'
     implementation 'com.google.firebase:firebase-firestore-ktx:21.4.2'
+    implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
 
     //Butterknife
     implementation 'com.jakewharton:butterknife:10.2.0'

@@ -49,7 +49,9 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
     private lateinit var mMapView: MapView
     private var file: File? = null
     private var fileUri: Uri? = null
+    private var imageUri: Uri? = null
     private var location: LatLng? = null
+    private var locationName: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_post)
@@ -154,10 +156,14 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
         post.description = et_description.text.toString()
         post.tittle = et_title.text.toString()
         post.latitude = location!!.latitude.toLong()
-        post.longtitude = location!!.longitude.toLong()
+        post.longitude = location!!.longitude.toLong()
         post.category = spinner_category.selectedItemId.toInt()
-        post.imageUri = ""
-        viewModel.savePost(post)
+        post.locationName = locationName
+        if (imageUri != null) {
+            viewModel.savePost(post, imageUri)
+        } else {
+            viewModel.savePost(post)
+        }
     }
 
     private fun pickFromGallery() {
@@ -200,26 +206,28 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
             if (resultCode == Activity.RESULT_OK && data != null) {
                 when (requestCode) {
                     REQUEST_CODE_CAMERA -> {
-                        UCrop.of(fileUri!!, Uri.fromFile(File.createTempFile("temp", "img")))
-                            .withAspectRatio(3F, 2F)
+                        UCrop.of(fileUri!!, Uri.fromFile(File.createTempFile("Image", "")))
+                            .withAspectRatio(8F, 3.2F)
                             .start(this)
                         file?.delete()
                     }
                     REQUEST_CODE_GALLERY -> {
                         val selectedImage: Uri = data.data!!
-                        UCrop.of(selectedImage, Uri.fromFile(File.createTempFile("temp", "img")))
-                            .withAspectRatio(3F, 2F)
+                        UCrop.of(selectedImage, Uri.fromFile(File.createTempFile("Image", "")))
+                            .withAspectRatio(8F, 3.2F)
                             .start(this)
                     }
                     UCrop.REQUEST_CROP -> {
                         iv_image.setImageURI(UCrop.getOutput(data))
-                        println(data)
+                        imageUri = UCrop.getOutput(data)
+                        println(UCrop.getOutput(data))
                     }
                     REQUEST_CODE_WRITE_PERMISSION -> {
                         selectImage()
                     }
                     REQUEST_CODE_LOCATION_PICKER -> {
-                        et_location.text = data.getStringExtra(LOCATION_NAME)
+                        locationName = data.getStringExtra(LOCATION_NAME)
+                        et_location.text = locationName
                         location = data.getParcelableExtra(CONSTANTS.LOCATION_COORDINATES)
                         setLocation(location!!)
                     }

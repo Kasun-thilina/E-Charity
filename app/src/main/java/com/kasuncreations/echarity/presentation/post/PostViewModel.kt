@@ -1,6 +1,7 @@
 package com.kasuncreations.echarity.presentation.post
 
 import android.app.Application
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.kasuncreations.echarity.data.models.Post
 import com.kasuncreations.echarity.data.repository.PostsRepository
@@ -27,6 +28,23 @@ class PostViewModel(
 
     val user by lazy {
         userRepository.getCurrentUser()
+    }
+
+    fun savePost(post: Post, uri: Uri?) {
+        listner?.onStarted()
+
+        val disposable = postsRepository.savePost(post, uri)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    listner?.onSuccess()
+                },
+                {
+                    listner?.onError(it.message!!)
+                }
+            )
+        disposables.add(disposable)
     }
 
     fun savePost(post: Post) {
