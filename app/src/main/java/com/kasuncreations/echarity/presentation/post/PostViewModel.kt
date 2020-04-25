@@ -46,24 +46,6 @@ class PostViewModel(
         disposables.add(disposable)
     }
 
-    fun loadPost() {
-        listner?.onStarted()
-        val disposable = postsRepository.loadPost()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    listner?.onSuccess()
-                },
-                {
-                    listner?.onError(it.message!!)
-                }
-            )
-        disposables.add(disposable)
-    }
-
-
-
     override fun onCleared() {
         super.onCleared()
         disposables.dispose()

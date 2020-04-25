@@ -35,9 +35,8 @@ class HomeFragment : BaseFragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, null)
         rvPosts = view.findViewById(R.id.rv_posts)
+        initView()
         loadData()
-        init()
-
         return view
     }
 
@@ -46,41 +45,39 @@ class HomeFragment : BaseFragment() {
         showProgress()
 
     }
-
-    private fun init() {
-        val con: ArrayList<String>? = null
-        con?.add("")
-        con?.add("")
-        postsAdapter = PostsAdapter(con)
-        mLayoutManager = LinearLayoutManager(context!!)
-        rvPosts.layoutManager = mLayoutManager
-        rvPosts.adapter = postsAdapter
-    }
-
     override fun onPause() {
         super.onPause()
-        //hideProgress()
     }
 
     override fun onResume() {
         super.onResume()
-        //  hideProgress()
+        loadData()
     }
 
     private fun loadData() {
         showProgress()
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         liveData = homeViewModel.getDataSnapshotLiveData()
-        liveData!!.observe(viewLifecycleOwner, Observer<DataSnapshot?> {
+
+        liveData!!.observe(viewLifecycleOwner, Observer {
             println(it)
-            //val posts = mutableListOf<Post>()
+            postsAdapter.postList.clear()
             it!!.children.map { post ->
-                //posts.add(post.value as Post)
-                val posts = post.getValue(Post::class.java)
-                println(posts)
+                postsAdapter.postList.add(post.getValue(Post::class.java)!!)
+                println(postsAdapter.postList.size)
             }
+            postsAdapter.notifyDataSetChanged()
             hideProgress()
         })
+
+
+    }
+
+    private fun initView() {
+        postsAdapter = PostsAdapter(context!!, mutableListOf())
+        mLayoutManager = LinearLayoutManager(context!!)
+        rvPosts.layoutManager = mLayoutManager
+        rvPosts.adapter = postsAdapter
     }
 
 }

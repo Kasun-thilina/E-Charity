@@ -23,7 +23,7 @@
             <ImageView
                 android:id="@+id/iv_post_banner"
                 android:layout_width="match_parent"
-                android:layout_height="135dp"
+                android:layout_height="142dp"
                 android:src="@drawable/help_me"
                 app:layout_constraintBottom_toTopOf="@id/tv_post_title"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,12 +54,13 @@
 
             <TextView
                 android:id="@+id/post_description"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="5"
                 android:padding="20dp"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                 android:textSize="16sp"
+                android:gravity="start"
                 app:layout_constraintBottom_toTopOf="@id/cl_bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +93,7 @@
                         android:layout_width="25dp"
                         android:layout_height="33dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/up_selected" />
+                        android:src="@drawable/up" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -116,7 +117,7 @@
                             android:layout_width="25dp"
                             android:layout_height="33dp"
                             style="@style/TitleTextBlackStyle"
-                            android:text="05"
+                            android:text="00"
                             android:textAlignment="center"
                             android:textSize="16sp"
                             android:gravity="center"

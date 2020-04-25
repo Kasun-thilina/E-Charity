@@ -155,7 +155,7 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
         post.tittle = et_title.text.toString()
         post.latitude = location!!.latitude.toLong()
         post.longtitude = location!!.longitude.toLong()
-        post.category = spinner_category.selectedItemId.toString()
+        post.category = spinner_category.selectedItemId.toInt()
         post.imageUri = ""
         viewModel.savePost(post)
     }
@@ -213,6 +213,7 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
                     }
                     UCrop.REQUEST_CROP -> {
                         iv_image.setImageURI(UCrop.getOutput(data))
+                        println(data)
                     }
                     REQUEST_CODE_WRITE_PERMISSION -> {
                         selectImage()

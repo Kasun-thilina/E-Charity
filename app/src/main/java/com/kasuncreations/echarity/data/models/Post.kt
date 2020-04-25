@@ -11,8 +11,10 @@ data class Post(
     var postId: Long? = null,
     var tittle: String? = null,
     var description: String? = null,
-    var category: String? = null,
+    var category: Int? = null,
     var latitude: Long? = null,
+    var upVote: Int? = null,
+    var downVote: Int? = null,
     var longtitude: Long? = null,
     var imageUri: String? = null
 )
