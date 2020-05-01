@@ -9,4 +9,6 @@ class PostsRepository(
 ) {
     fun savePost(post: Post, uri: Uri?) = postFunctions.savePost(post, uri)
     fun savePost(post: Post) = postFunctions.savePost(post)
+    fun updatePost(count: Int, ID: Long, type: Int, userID: String) =
+        postFunctions.updateDB(count, ID, type, userID)
 }

@@ -3,9 +3,9 @@ package com.kasuncreations.echarity.presentation.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.kasuncreations.echarity.data.firebase.FirebaseQueryLiveData
+import com.google.firebase.database.Query
+import com.kasuncreations.echarity.data.firebase.FirebaseLiveData
 
 class HomeViewModel : ViewModel() {
 
@@ -13,8 +13,9 @@ class HomeViewModel : ViewModel() {
         FirebaseDatabase.getInstance()
     }
 
-    private val postsReference: DatabaseReference = firebaseDatabase.getReference("posts")
-    private val liveData = FirebaseQueryLiveData(postsReference)
+    private val postsReference: Query = firebaseDatabase.getReference("posts").orderByChild("vote")
+    private val liveData = FirebaseLiveData(postsReference)
+
 
     fun getDataSnapshotLiveData(): LiveData<DataSnapshot?>? {
         return liveData

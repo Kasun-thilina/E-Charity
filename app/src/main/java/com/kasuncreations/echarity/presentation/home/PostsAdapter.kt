@@ -13,14 +13,20 @@ import kotlinx.android.synthetic.main.item_post_layout.view.*
 
 /**
  * RecyclerView adpter for Posts view
+ * This Adapter is using a Kotlin Lambda Function to callback to the Activity class. Its similar
+ * to a interface but with less code :). Lambda function is returning the required values back and that's it.
  * @author kasun.thilina.t@gmail.com
  * @since 23rd April 2020
  */
-class PostsAdapter(var mContext: Context, var postList: MutableList<Post>) :
+class PostsAdapter(
+    var mContext: Context,
+    val userID: String,
+    var postList: MutableList<Post>,
+    val onVoteCast: (Int, Long, Int) -> Unit
+) :
     RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
-    var clickedUp = false
-    var clickedDown = false
-    var count = 0
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_post_layout, parent, false)
@@ -33,6 +39,32 @@ class PostsAdapter(var mContext: Context, var postList: MutableList<Post>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(position)
+        var clickedUp = false
+        var clickedDown = false
+        var alreadyClicked = false
+        if (postList[position].userId == userID) {
+            if (postList[position].voteType == 0) {
+                holder.itemView.post_vote_down.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        mContext,
+                        R.drawable.down_selected
+                    )
+                )
+                clickedDown = true
+                alreadyClicked = true
+            } else if (postList[position].voteType == 1) {
+                holder.itemView.post_vote_up.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        mContext,
+                        R.drawable.up_selected
+                    )
+                )
+                clickedUp = true
+                alreadyClicked = true
+            }
+        }
+        var count: Int = postList[position].vote!!
+        holder.itemView.tv_vote_counter.text = count.toString()
         holder.itemView.post_vote_up.setOnClickListener {
             clickedUp = if (!clickedUp) {
                 holder.itemView.post_vote_up.setImageDrawable(
@@ -47,8 +79,15 @@ class PostsAdapter(var mContext: Context, var postList: MutableList<Post>) :
                         R.drawable.down
                     )
                 )
-                count++
+                if (clickedDown && !alreadyClicked) {
+                    count += 2
+                    alreadyClicked = false
+                } else {
+                    count++
+                }
                 holder.itemView.tv_vote_counter.text = count.toString()
+                onVoteCast(count, postList[position].postId!!, 1)
+                clickedDown = false
                 true
             } else {
                 holder.itemView.post_vote_up.setImageDrawable(
@@ -65,8 +104,10 @@ class PostsAdapter(var mContext: Context, var postList: MutableList<Post>) :
                 )
                 count--
                 holder.itemView.tv_vote_counter.text = count.toString()
+                onVoteCast(count, postList[position].postId!!, 2)
                 false
             }
+
         }
 
         holder.itemView.post_vote_down.setOnClickListener {
@@ -83,8 +124,15 @@ class PostsAdapter(var mContext: Context, var postList: MutableList<Post>) :
                         R.drawable.up
                     )
                 )
-                count--
+                if (clickedUp && !alreadyClicked) {
+                    count -= 2
+                    alreadyClicked = false
+                } else {
+                    count--
+                }
                 holder.itemView.tv_vote_counter.text = count.toString()
+                onVoteCast(count, postList[position].postId!!, 0)
+                clickedUp = false
                 true
             } else {
                 holder.itemView.post_vote_down.setImageDrawable(
@@ -101,9 +149,11 @@ class PostsAdapter(var mContext: Context, var postList: MutableList<Post>) :
                 )
                 count++
                 holder.itemView.tv_vote_counter.text = count.toString()
+                onVoteCast(count, postList[position].postId!!, 2)
                 false
             }
         }
+
 
     }
 
@@ -111,8 +161,6 @@ class PostsAdapter(var mContext: Context, var postList: MutableList<Post>) :
         fun onBind(position: Int) {
             itemView.tv_post_title.text = postList[position].tittle.toString()
             itemView.post_description.text = postList[position].description.toString()
-            count = postList[position].vote!!
-            itemView.tv_vote_counter.text = count.toString()
             if (postList[position].imageUri.isNullOrBlank()) {
                 var imageUri: Int? = null
                 if (postList[position].category == 0) {

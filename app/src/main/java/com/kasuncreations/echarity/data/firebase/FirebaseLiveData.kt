@@ -1,11 +1,10 @@
 package com.kasuncreations.echarity.data.firebase
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.google.firebase.database.*
 
 
-class FirebaseQueryLiveData : LiveData<DataSnapshot?> {
+class FirebaseLiveData : LiveData<DataSnapshot?> {
     private val query: Query
     private val listener =
         MyValueEventListener()
@@ -19,12 +18,10 @@ class FirebaseQueryLiveData : LiveData<DataSnapshot?> {
     }
 
     override fun onActive() {
-        println("onActive")
         query.addValueEventListener(listener)
     }
 
     override fun onInactive() {
-        println("onInactive")
         query.removeEventListener(listener)
     }
 
@@ -34,13 +31,7 @@ class FirebaseQueryLiveData : LiveData<DataSnapshot?> {
         }
 
         override fun onCancelled(databaseError: DatabaseError) {
-            Log.e(
-                "error",
-                "Can't listen to query $query",
-                databaseError.toException()
-            )
-
-            //value=databaseError
+            println(databaseError.toException())
         }
     }
 

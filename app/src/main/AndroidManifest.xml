@@ -47,7 +47,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".presentation.map.LocationPickerActivity"
+            android:name=".presentation.post.LocationPickerActivity"
             android:label="@string/title_activity_location_picker" />
         <activity
             android:name=".presentation.map.MapsActivity"

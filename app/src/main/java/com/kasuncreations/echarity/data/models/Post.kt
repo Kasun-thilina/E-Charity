@@ -16,5 +16,7 @@ data class Post(
     var longitude: Long? = null,
     var locationName: String? = null,
     var vote: Int? = null,
+    var voteType: Int? = null,
+    var voters: ArrayList<String>? = null,
     var imageUri: String? = null
 )

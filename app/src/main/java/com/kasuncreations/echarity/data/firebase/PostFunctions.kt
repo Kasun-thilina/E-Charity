@@ -69,5 +69,25 @@ class PostFunctions {
             }
     }
 
+    fun updateDB(
+        count: Int, ID: Long, type: Int, userID: String
+    ) = Completable.create { emitter ->
+        firebaseDatabase.getReference("posts").child(ID.toString())
+            .child("vote").setValue(count).addOnCompleteListener { vote ->
+                if (vote.isSuccessful) {
+                    firebaseDatabase.getReference("posts").child(ID.toString())
+                        .child("voteType").setValue(type).addOnCompleteListener { type ->
+                            if (type.isSuccessful) {
+                                emitter.onComplete()
+                            } else {
+                                emitter.onError(type.exception!!)
+                            }
+                        }
+                } else {
+                    emitter.onError(vote.exception!!)
+                }
+            }
+    }
+
 
 }

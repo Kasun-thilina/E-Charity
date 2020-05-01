@@ -3,15 +3,14 @@ package com.kasuncreations.echarity.presentation.post
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import android.widget.ArrayAdapter
-import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProviders
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -24,7 +23,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.data.models.Post
 import com.kasuncreations.echarity.presentation.auth.Listner
-import com.kasuncreations.echarity.presentation.map.LocationPickerActivity
 import com.kasuncreations.echarity.utils.*
 import com.kasuncreations.echarity.utils.CONSTANTS.LOCATION_NAME
 import com.kasuncreations.echarity.utils.CONSTANTS.REQUEST_CODE_CAMERA
@@ -159,6 +157,7 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
         post.longitude = location!!.longitude.toLong()
         post.category = spinner_category.selectedItemId.toInt()
         post.locationName = locationName
+        post.vote = 0
         if (imageUri != null) {
             viewModel.savePost(post, imageUri)
         } else {
@@ -177,22 +176,16 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
     private fun pickFromCamera() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (takePictureIntent.resolveActivity(packageManager) != null) {
-            file = File(
-                getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS + "/temp")!!.path,
-                System.currentTimeMillis().toString() + ".jpg"
-            )
-            fileUri = FileProvider.getUriForFile(
-                this,
-                this.applicationContext.packageName + ".provider",
-                file!!
-            )
+            val values = ContentValues()
+            values.put(MediaStore.Images.Media.TITLE, "New Picture")
+            values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+            fileUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
                 takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             }
             startActivityForResult(takePictureIntent, REQUEST_CODE_CAMERA)
         }
-
     }
 
 

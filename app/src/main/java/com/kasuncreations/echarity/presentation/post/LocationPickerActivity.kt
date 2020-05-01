@@ -1,4 +1,4 @@
-package com.kasuncreations.echarity.presentation.map
+package com.kasuncreations.echarity.presentation.post
 
 import android.Manifest
 import android.annotation.SuppressLint

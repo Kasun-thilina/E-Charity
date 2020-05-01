@@ -13,10 +13,12 @@ import com.kasuncreations.echarity.presentation.map.MapFragment
 import com.kasuncreations.echarity.presentation.post.AddPostActivity
 import com.kasuncreations.echarity.presentation.profile.ProfileFragment
 import com.kasuncreations.echarity.utils.BaseActivity
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), KodeinAware {
     private lateinit var bottomAppBar: BottomAppBar
-
+    override val kodein by kodein()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

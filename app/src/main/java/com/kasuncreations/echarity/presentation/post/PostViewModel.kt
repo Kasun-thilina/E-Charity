@@ -64,6 +64,22 @@ class PostViewModel(
         disposables.add(disposable)
     }
 
+    fun updatePost(count: Int, ID: Long, type: Int, userID: String) {
+        listner?.onStarted()
+        val disposable = postsRepository.updatePost(count, ID, type, userID)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    listner?.onSuccess()
+                },
+                {
+                    listner?.onError(it.message!!)
+                }
+            )
+        disposables.add(disposable)
+    }
+
     override fun onCleared() {
         super.onCleared()
         disposables.dispose()

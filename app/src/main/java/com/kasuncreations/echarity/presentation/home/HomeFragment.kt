@@ -9,12 +9,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.data.models.Post
+import com.kasuncreations.echarity.presentation.auth.Listner
+import com.kasuncreations.echarity.presentation.post.PostViewModel
+import com.kasuncreations.echarity.presentation.post.PostViewModelFactory
+import com.kasuncreations.echarity.presentation.post.VoteListener
 import com.kasuncreations.echarity.utils.BaseFragment
+import com.kasuncreations.echarity.utils.showToastLong
+import org.kodein.di.KodeinAware
+import org.kodein.di.generic.instance
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), KodeinAware, Listner {
 
 
     companion object {
@@ -22,11 +30,19 @@ class HomeFragment : BaseFragment() {
         fun newInstance() = HomeFragment()
     }
 
+    override val kodein by lazy { (context as KodeinAware).kodein }
+    private val factory: PostViewModelFactory by instance()
+    private lateinit var viewModel: PostViewModel
+
     private lateinit var postsAdapter: PostsAdapter
     private lateinit var mLayoutManager: LinearLayoutManager
     private lateinit var rvPosts: RecyclerView
     private lateinit var homeViewModel: HomeViewModel
     private var liveData: LiveData<DataSnapshot?>? = null
+
+    private val firebaseAuth: FirebaseAuth by lazy {
+        FirebaseAuth.getInstance()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +51,8 @@ class HomeFragment : BaseFragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, null)
         rvPosts = view.findViewById(R.id.rv_posts)
+        viewModel = ViewModelProviders.of(this, factory).get(PostViewModel::class.java)
+        viewModel.listner = this
         initView()
         loadData()
         return view
@@ -64,20 +82,46 @@ class HomeFragment : BaseFragment() {
             postsAdapter.postList.clear()
             it!!.children.map { post ->
                 postsAdapter.postList.add(post.getValue(Post::class.java)!!)
-                println(postsAdapter.postList.size)
+                //println(postsAdapter.postList.size)
             }
+            postsAdapter.postList.reverse()
             postsAdapter.notifyDataSetChanged()
             hideProgress()
+            liveData!!.removeObservers(viewLifecycleOwner)
         })
 
 
     }
 
     private fun initView() {
-        postsAdapter = PostsAdapter(context!!, mutableListOf())
+        postsAdapter = PostsAdapter(
+            context!!,
+            firebaseAuth.currentUser!!.uid,
+            mutableListOf()
+        ) { count, ID, type ->
+            updateVote(count, ID, type)
+        }
         mLayoutManager = LinearLayoutManager(context!!)
         rvPosts.layoutManager = mLayoutManager
         rvPosts.adapter = postsAdapter
     }
+
+    private fun updateVote(count: Int, ID: Long, type: Int) {
+        println("count: $count,$ID")
+        viewModel.updatePost(count, ID, type, firebaseAuth.currentUser!!.uid)
+    }
+
+    override fun onStarted() {
+
+    }
+
+    override fun onSuccess() {
+
+    }
+
+    override fun onError(msg: String) {
+        context.showToastLong("Vote Casting Failed:$msg")
+    }
+
 
 }

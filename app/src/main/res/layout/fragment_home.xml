@@ -6,5 +6,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_posts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingBottom="40dp"
+        android:layout_marginBottom="45dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
