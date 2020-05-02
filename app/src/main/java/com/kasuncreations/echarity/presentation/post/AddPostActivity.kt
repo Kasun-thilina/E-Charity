@@ -153,8 +153,8 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
         val post = Post()
         post.description = et_description.text.toString()
         post.tittle = et_title.text.toString()
-        post.latitude = location!!.latitude.toLong()
-        post.longitude = location!!.longitude.toLong()
+        post.latitude = location!!.latitude
+        post.longitude = location!!.longitude
         post.category = spinner_category.selectedItemId.toInt()
         post.locationName = locationName
         post.vote = 0

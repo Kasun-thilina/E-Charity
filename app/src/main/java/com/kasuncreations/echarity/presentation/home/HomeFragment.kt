@@ -16,7 +16,6 @@ import com.kasuncreations.echarity.data.models.Post
 import com.kasuncreations.echarity.presentation.auth.Listner
 import com.kasuncreations.echarity.presentation.post.PostViewModel
 import com.kasuncreations.echarity.presentation.post.PostViewModelFactory
-import com.kasuncreations.echarity.presentation.post.VoteListener
 import com.kasuncreations.echarity.utils.BaseFragment
 import com.kasuncreations.echarity.utils.showToastLong
 import org.kodein.di.KodeinAware
@@ -78,7 +77,6 @@ class HomeFragment : BaseFragment(), KodeinAware, Listner {
         liveData = homeViewModel.getDataSnapshotLiveData()
 
         liveData!!.observe(viewLifecycleOwner, Observer {
-            println(it)
             postsAdapter.postList.clear()
             it!!.children.map { post ->
                 postsAdapter.postList.add(post.getValue(Post::class.java)!!)
@@ -89,8 +87,6 @@ class HomeFragment : BaseFragment(), KodeinAware, Listner {
             hideProgress()
             liveData!!.removeObservers(viewLifecycleOwner)
         })
-
-
     }
 
     private fun initView() {
