@@ -1,5 +1,6 @@
 package com.kasuncreations.echarity.presentation.home
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.kasuncreations.echarity.presentation.auth.Listner
 import com.kasuncreations.echarity.presentation.post.PostViewModel
 import com.kasuncreations.echarity.presentation.post.PostViewModelFactory
 import com.kasuncreations.echarity.utils.BaseFragment
+import com.kasuncreations.echarity.utils.CONSTANTS
 import com.kasuncreations.echarity.utils.showToastLong
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
@@ -32,6 +34,7 @@ class HomeFragment : BaseFragment(), KodeinAware, Listner {
     override val kodein by lazy { (context as KodeinAware).kodein }
     private val factory: PostViewModelFactory by instance()
     private lateinit var viewModel: PostViewModel
+    private val factoryPreferences: SharedPreferences by instance(arg = CONSTANTS.PREF_NAME)
 
     private lateinit var postsAdapter: PostsAdapter
     private lateinit var mLayoutManager: LinearLayoutManager

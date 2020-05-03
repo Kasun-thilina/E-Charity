@@ -1,4 +1,4 @@
-package com.kasuncreations.echarity.data.firebase
+package com.kasuncreations.echarity.data.di
 
 import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth

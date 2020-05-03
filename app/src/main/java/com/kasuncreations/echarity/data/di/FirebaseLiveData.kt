@@ -1,4 +1,4 @@
-package com.kasuncreations.echarity.data.firebase
+package com.kasuncreations.echarity.data.di
 
 import androidx.lifecycle.LiveData
 import com.google.firebase.database.*

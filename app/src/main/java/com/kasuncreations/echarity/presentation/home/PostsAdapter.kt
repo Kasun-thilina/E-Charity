@@ -1,6 +1,7 @@
 package com.kasuncreations.echarity.presentation.home
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.data.models.Post
+import com.kasuncreations.echarity.presentation.chat.ChatViewActivity
+import com.kasuncreations.echarity.utils.CONSTANTS.USER_ID
 import kotlinx.android.synthetic.main.item_post_layout.view.*
 
 /**
@@ -154,7 +157,11 @@ class PostsAdapter(
             }
         }
 
-
+        holder.itemView.btn_send_msg.setOnClickListener {
+            val intent = Intent(mContext, ChatViewActivity::class.java)
+            intent.putExtra(USER_ID, postList[position].userId)
+            mContext.startActivity(intent)
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -17,18 +17,10 @@ class PostViewModel(
     val application: Application
 ) : ViewModel() {
     var title: String? = null
-    var description: String? = null
-    var latLng: String? = null
-    var image: String? = null
 
     var listner: Listner? = null
 
     private val disposables = CompositeDisposable()
-
-
-    val user by lazy {
-        userRepository.getCurrentUser()
-    }
 
     fun savePost(post: Post, uri: Uri?) {
         listner?.onStarted()

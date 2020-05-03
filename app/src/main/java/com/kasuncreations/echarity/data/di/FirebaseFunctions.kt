@@ -1,9 +1,11 @@
-package com.kasuncreations.echarity.data.firebase
+package com.kasuncreations.echarity.data.di
 
+import android.content.SharedPreferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.kasuncreations.echarity.data.models.User
 import com.kasuncreations.echarity.utils.CONSTANTS
+import com.kasuncreations.echarity.utils.CONSTANTS.USER_ID
 import io.reactivex.Completable
 
 /**
@@ -12,7 +14,7 @@ import io.reactivex.Completable
  *
  * firebase initialization and related functions
  */
-class FirebaseFunctions() {
+class FirebaseFunctions(val pref: SharedPreferences) {
 
     private val firebaseAuth: FirebaseAuth by lazy {
         FirebaseAuth.getInstance()
@@ -26,6 +28,7 @@ class FirebaseFunctions() {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (!emitter.isDisposed) {
                 if (it.isSuccessful) {
+                    pref.edit().putString(USER_ID, firebaseAuth.currentUser!!.uid).apply()
                     emitter.onComplete()
                 } else
                     emitter.onError(it.exception!!)

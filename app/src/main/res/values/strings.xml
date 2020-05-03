@@ -11,10 +11,11 @@
     <string name="label_sign_up">Sign Up</string>
     <string name="label_sign_out">Sign Out</string>
     <string name="label_location_picker">Select a location</string>
+    <string name="label_">Select a location</string>
 
     <string name="btn_label_done">Done</string>
     <string name="btn_label_add_post">Add New Post</string>
-    <string name="btn_label_chatbot">Ask Your Questions From the Chatbot!</string>
+    <string name="btn_label_chatbot">Ask Your Questions From the AI Chatbot!</string>
 
 
     <string name="label_login_to_account">Login to account</string>

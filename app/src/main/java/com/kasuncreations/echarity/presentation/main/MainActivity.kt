@@ -1,6 +1,7 @@
 package com.kasuncreations.echarity.presentation.main
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import butterknife.ButterKnife
@@ -13,12 +14,16 @@ import com.kasuncreations.echarity.presentation.map.MapFragment
 import com.kasuncreations.echarity.presentation.post.AddPostActivity
 import com.kasuncreations.echarity.presentation.profile.ProfileFragment
 import com.kasuncreations.echarity.utils.BaseActivity
+import com.kasuncreations.echarity.utils.CONSTANTS
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
 class MainActivity : BaseActivity(), KodeinAware {
     private lateinit var bottomAppBar: BottomAppBar
     override val kodein by kodein()
+    private val factoryPreferences: SharedPreferences by instance(arg = CONSTANTS.PREF_NAME)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

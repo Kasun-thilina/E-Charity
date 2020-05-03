@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
-import com.kasuncreations.echarity.data.firebase.FirebaseLiveData
+import com.kasuncreations.echarity.data.di.FirebaseLiveData
 
 class MapViewModel : ViewModel() {
     private val firebaseDatabase: FirebaseDatabase by lazy {

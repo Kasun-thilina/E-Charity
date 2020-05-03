@@ -1,6 +1,6 @@
 package com.kasuncreations.echarity.data.repository
 
-import com.kasuncreations.echarity.data.firebase.FirebaseFunctions
+import com.kasuncreations.echarity.data.di.FirebaseFunctions
 
 /**
  * Created by Kasun Thilina on 26 February 2020

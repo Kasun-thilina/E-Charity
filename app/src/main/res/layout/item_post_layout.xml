@@ -24,6 +24,7 @@
                 android:id="@+id/iv_post_banner"
                 android:layout_width="match_parent"
                 android:layout_height="142dp"
+                android:src="@drawable/can_help"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -176,7 +177,7 @@
                         android:src="@drawable/down" />
                 </androidx.cardview.widget.CardView>
                 <ImageButton
-                    android:id="@+id/ib_send_msg"
+                    android:id="@+id/btn_send_msg"
                     android:layout_width="wrap_content"
                     android:layout_height="34dp"
                     android:layout_margin="10dp"

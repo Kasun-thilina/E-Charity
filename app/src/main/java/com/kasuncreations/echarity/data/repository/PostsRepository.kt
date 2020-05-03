@@ -1,7 +1,7 @@
 package com.kasuncreations.echarity.data.repository
 
 import android.net.Uri
-import com.kasuncreations.echarity.data.firebase.PostFunctions
+import com.kasuncreations.echarity.data.di.PostFunctions
 import com.kasuncreations.echarity.data.models.Post
 
 class PostsRepository(
