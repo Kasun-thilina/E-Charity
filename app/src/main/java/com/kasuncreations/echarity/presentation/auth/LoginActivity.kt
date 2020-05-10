@@ -30,6 +30,7 @@ class LoginActivity : BaseActivity(), Listner, KodeinAware {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+//        setTheme(R.style.AppTheme_Login)
         ButterKnife.bind(this)
         //auth = FirebaseAuth.getInstance()
         init()
