@@ -22,7 +22,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
-class ChatViewActivity : BaseActivity(), KodeinAware, Listner {
+class ConversationViewActivity : BaseActivity(), KodeinAware, Listner {
 
     override val kodein by kodein()
     private val factory: ChatViewModelFactory by instance()
@@ -50,13 +50,6 @@ class ChatViewActivity : BaseActivity(), KodeinAware, Listner {
         init()
     }
 
-    private fun initView() {
-        conversationViewAdapter = ConversationViewAdapter(mutableListOf(), senderID)
-        mLayoutManager = LinearLayoutManager(this)
-        rv_chat_view.layoutManager = mLayoutManager
-        rv_chat_view.adapter = conversationViewAdapter
-    }
-
     private fun init() {
         //showProgress()
         val temp = listOf(senderID, receiverID)
@@ -73,6 +66,12 @@ class ChatViewActivity : BaseActivity(), KodeinAware, Listner {
         })
     }
 
+    private fun initView() {
+        conversationViewAdapter = ConversationViewAdapter(mutableListOf(), senderID)
+        mLayoutManager = LinearLayoutManager(this)
+        rv_chat_view.layoutManager = mLayoutManager
+        rv_chat_view.adapter = conversationViewAdapter
+    }
 
     @OnClick(
         R.id.btn_send

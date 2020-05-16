@@ -4,6 +4,7 @@ import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.kasuncreations.echarity.data.models.Post
+import com.kasuncreations.echarity.data.models.Vote
 import com.kasuncreations.echarity.data.repository.PostsRepository
 import com.kasuncreations.echarity.data.repository.UserRepository
 import com.kasuncreations.echarity.presentation.auth.Listner
@@ -56,9 +57,9 @@ class PostViewModel(
         disposables.add(disposable)
     }
 
-    fun updatePost(count: Int, ID: Long, type: Int, userID: String) {
+    fun updatePost(count: Int, ID: Long, vote: Vote) {
         listner?.onStarted()
-        val disposable = postsRepository.updatePost(count, ID, type, userID)
+        val disposable = postsRepository.updatePost(count, ID, vote)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

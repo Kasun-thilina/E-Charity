@@ -157,7 +157,8 @@ class AddPostActivity : BaseActivity(), OnMapReadyCallback, KodeinAware, Listner
         post.longitude = location!!.longitude
         post.category = spinner_category.selectedItemId.toInt()
         post.locationName = locationName
-        post.vote = 0
+        post.vote = null
+        post.voteCount = 0
         if (imageUri != null) {
             viewModel.savePost(post, imageUri)
         } else {

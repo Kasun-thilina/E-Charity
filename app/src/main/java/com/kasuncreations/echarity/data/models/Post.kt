@@ -16,8 +16,7 @@ data class Post(
     var latitude: Double? = null,
     var longitude: Double? = null,
     var locationName: String? = null,
-    var vote: Int? = null,
-    var voteType: Int? = null,
-    var voters: ArrayList<String>? = null,
+    var vote: Map<String, Vote>? = null,
+    var voteCount: Int? = null,
     var imageUri: String? = null
 )

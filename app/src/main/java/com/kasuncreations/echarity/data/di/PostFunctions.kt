@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.kasuncreations.echarity.data.models.Post
+import com.kasuncreations.echarity.data.models.Vote
 import io.reactivex.Completable
 import io.reactivex.CompletableEmitter
 
@@ -70,21 +71,23 @@ class PostFunctions {
     }
 
     fun updateDB(
-        count: Int, ID: Long, type: Int, userID: String
+        count: Int, ID: Long, vote: Vote
     ) = Completable.create { emitter ->
+        val userId = firebaseAuth.currentUser!!.uid
         firebaseDatabase.getReference("posts").child(ID.toString())
-            .child("vote").setValue(count).addOnCompleteListener { vote ->
-                if (vote.isSuccessful) {
+            .child("voteCount").setValue(count).addOnCompleteListener { saveVote ->
+                if (saveVote.isSuccessful) {
                     firebaseDatabase.getReference("posts").child(ID.toString())
-                        .child("voteType").setValue(type).addOnCompleteListener { type ->
-                            if (type.isSuccessful) {
+                        .child("vote").child(userId).setValue(vote)
+                        .addOnCompleteListener { saveDetails ->
+                            if (saveDetails.isSuccessful) {
                                 emitter.onComplete()
                             } else {
-                                emitter.onError(type.exception!!)
+                                emitter.onError(saveDetails.exception!!)
                             }
                         }
                 } else {
-                    emitter.onError(vote.exception!!)
+                    emitter.onError(saveVote.exception!!)
                 }
             }
     }

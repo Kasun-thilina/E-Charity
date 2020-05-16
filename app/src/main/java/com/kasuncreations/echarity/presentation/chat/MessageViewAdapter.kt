@@ -38,7 +38,7 @@ class MessageViewAdapter(
         holder.itemView.tv_subtitle.text = msgList[position].message.toString()
 
         holder.itemView.cl_parent.setOnClickListener {
-            val intent = Intent(mContext, ChatViewActivity::class.java)
+            val intent = Intent(mContext, ConversationViewActivity::class.java)
             if (userID == msgList[position].receiverID) {
                 intent.putExtra(CONSTANTS.USER_ID, msgList[position].senderID)
             } else {

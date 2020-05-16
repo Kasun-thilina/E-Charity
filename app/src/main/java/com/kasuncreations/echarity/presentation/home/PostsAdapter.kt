@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.data.models.Post
-import com.kasuncreations.echarity.presentation.chat.ChatViewActivity
+import com.kasuncreations.echarity.data.models.Vote
+import com.kasuncreations.echarity.presentation.chat.ConversationViewActivity
 import com.kasuncreations.echarity.utils.CONSTANTS.USER_ID
 import kotlinx.android.synthetic.main.item_post_layout.view.*
 
@@ -25,7 +26,7 @@ class PostsAdapter(
     var mContext: Context,
     val userID: String,
     var postList: MutableList<Post>,
-    val onVoteCast: (Int, Long, Int) -> Unit
+    val onVoteCast: (Int, Long, Vote) -> Unit
 ) :
     RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
 
@@ -45,8 +46,20 @@ class PostsAdapter(
         var clickedUp = false
         var clickedDown = false
         var alreadyClicked = false
-        if (postList[position].userId == userID) {
-            if (postList[position].voteType == 0) {
+        val vote = Vote()
+        var voteIndex: Int? = null
+        var voteType: Int? = null
+        var voteUserID: String? = null
+        vote.userID = userID
+        postList[position].vote?.entries?.forEachIndexed { index, element ->
+            if (element.value.userID == userID) {
+                voteIndex = index
+                voteType = element.value.voteType
+                voteUserID = element.value.userID
+            }
+        }
+        if (voteUserID == userID) {
+            if (voteType == 0) {
                 holder.itemView.post_vote_down.setImageDrawable(
                     ContextCompat.getDrawable(
                         mContext,
@@ -55,7 +68,7 @@ class PostsAdapter(
                 )
                 clickedDown = true
                 alreadyClicked = true
-            } else if (postList[position].voteType == 1) {
+            } else if (voteType == 1) {
                 holder.itemView.post_vote_up.setImageDrawable(
                     ContextCompat.getDrawable(
                         mContext,
@@ -66,7 +79,7 @@ class PostsAdapter(
                 alreadyClicked = true
             }
         }
-        var count: Int = postList[position].vote!!
+        var count: Int = postList[position].voteCount!!
         holder.itemView.tv_vote_counter.text = count.toString()
         holder.itemView.post_vote_up.setOnClickListener {
             clickedUp = if (!clickedUp) {
@@ -89,7 +102,8 @@ class PostsAdapter(
                     count++
                 }
                 holder.itemView.tv_vote_counter.text = count.toString()
-                onVoteCast(count, postList[position].postId!!, 1)
+                vote.voteType = 1
+                onVoteCast(count, postList[position].postId!!, vote)
                 clickedDown = false
                 true
             } else {
@@ -107,7 +121,8 @@ class PostsAdapter(
                 )
                 count--
                 holder.itemView.tv_vote_counter.text = count.toString()
-                onVoteCast(count, postList[position].postId!!, 2)
+                vote.voteType = 2
+                onVoteCast(count, postList[position].postId!!, vote)
                 false
             }
 
@@ -134,7 +149,8 @@ class PostsAdapter(
                     count--
                 }
                 holder.itemView.tv_vote_counter.text = count.toString()
-                onVoteCast(count, postList[position].postId!!, 0)
+                vote.voteType = 0
+                onVoteCast(count, postList[position].postId!!, vote)
                 clickedUp = false
                 true
             } else {
@@ -152,14 +168,15 @@ class PostsAdapter(
                 )
                 count++
                 holder.itemView.tv_vote_counter.text = count.toString()
-                onVoteCast(count, postList[position].postId!!, 2)
+                vote.voteType = 2
+                onVoteCast(count, postList[position].postId!!, vote)
                 false
             }
         }
 
         holder.itemView.btn_send_msg.setOnClickListener {
-            val intent = Intent(mContext, ChatViewActivity::class.java)
-            intent.putExtra(USER_ID, postList[position].userId)
+            val intent = Intent(mContext, ConversationViewActivity::class.java)
+            intent.putExtra(USER_ID, voteUserID)
             mContext.startActivity(intent)
         }
     }

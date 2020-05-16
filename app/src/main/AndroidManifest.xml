@@ -45,7 +45,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".presentation.chat.ChatViewActivity"
+            android:name=".presentation.chat.ConversationViewActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".presentation.post.LocationPickerActivity"

@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.data.models.Post
+import com.kasuncreations.echarity.data.models.Vote
 import com.kasuncreations.echarity.presentation.auth.Listner
 import com.kasuncreations.echarity.presentation.post.PostViewModel
 import com.kasuncreations.echarity.presentation.post.PostViewModelFactory
@@ -78,12 +79,11 @@ class HomeFragment : BaseFragment(), KodeinAware, Listner {
         showProgress()
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         liveData = homeViewModel.getDataSnapshotLiveData()
-
+        var voteList: MutableList<Vote>? = null
         liveData!!.observe(viewLifecycleOwner, Observer {
             postsAdapter.postList.clear()
             it!!.children.map { post ->
                 postsAdapter.postList.add(post.getValue(Post::class.java)!!)
-                //println(postsAdapter.postList.size)
             }
             postsAdapter.postList.reverse()
             postsAdapter.notifyDataSetChanged()
@@ -97,17 +97,17 @@ class HomeFragment : BaseFragment(), KodeinAware, Listner {
             context!!,
             firebaseAuth.currentUser!!.uid,
             mutableListOf()
-        ) { count, ID, type ->
-            updateVote(count, ID, type)
+        ) { count, ID, vote ->
+            updateVote(count, ID, vote)
         }
         mLayoutManager = LinearLayoutManager(context!!)
         rvPosts.layoutManager = mLayoutManager
         rvPosts.adapter = postsAdapter
     }
 
-    private fun updateVote(count: Int, ID: Long, type: Int) {
+    private fun updateVote(count: Int, ID: Long, vote: Vote) {
         println("count: $count,$ID")
-        viewModel.updatePost(count, ID, type, firebaseAuth.currentUser!!.uid)
+        viewModel.updatePost(count, ID, vote)
     }
 
     override fun onStarted() {
