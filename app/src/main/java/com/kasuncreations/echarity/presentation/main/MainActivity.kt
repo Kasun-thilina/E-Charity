@@ -1,5 +1,6 @@
 package com.kasuncreations.echarity.presentation.main
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -9,12 +10,14 @@ import butterknife.OnClick
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.presentation.chat.ChatFragment
+import com.kasuncreations.echarity.presentation.fcm.SendPushNotificationActivity
 import com.kasuncreations.echarity.presentation.home.HomeFragment
 import com.kasuncreations.echarity.presentation.map.MapFragment
 import com.kasuncreations.echarity.presentation.post.AddPostActivity
 import com.kasuncreations.echarity.presentation.profile.ProfileFragment
 import com.kasuncreations.echarity.utils.BaseActivity
 import com.kasuncreations.echarity.utils.CONSTANTS
+import com.kasuncreations.echarity.utils.showToastLong
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -22,13 +25,19 @@ import org.kodein.di.generic.instance
 class MainActivity : BaseActivity(), KodeinAware {
     private lateinit var bottomAppBar: BottomAppBar
     override val kodein by kodein()
-    private val factoryPreferences: SharedPreferences by instance(arg = CONSTANTS.PREF_NAME)
+    private val sharedPreferences: SharedPreferences by instance(arg = CONSTANTS.PREF_NAME)
+    private var isAdmin: Boolean? = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
         setUpBottomNavigation()
+        isAdmin = sharedPreferences.getBoolean(CONSTANTS.IS_ADMIN, false)
+        if (isAdmin!!) {
+            showToastLong("Logged in as Administrator")
+        }
+//        setStatusBarColor(R.color.colorWhite)
 
     }
 
@@ -58,7 +67,7 @@ class MainActivity : BaseActivity(), KodeinAware {
         R.id.nav_btn_chat,
         R.id.nav_btn_map,
         R.id.nav_btn_profile,
-        R.id.btn_floating
+        R.id.btn_fab
     )
     internal fun click(view: View) {
         //Fragment navigation
@@ -83,12 +92,43 @@ class MainActivity : BaseActivity(), KodeinAware {
                     .replace(R.id.fragment_container, ProfileFragment.newInstance(), "profile")
                     .commit()
             }
-            R.id.btn_floating -> {
-                Intent(this, AddPostActivity::class.java).also {
-                    this.startActivity(it)
+            R.id.btn_fab -> {
+                if (isAdmin!!) {
+                    showOptions()
+                } else {
+                    Intent(this, AddPostActivity::class.java).also {
+                        this.startActivity(it)
+                    }
                 }
             }
         }
+    }
+
+    private fun showOptions() {
+        val options =
+            arrayOf<CharSequence>("Add New Post", "Send Push Notification", "Cancel")
+
+        val builder = AlertDialog.Builder(this)
+        //builder.setTitle("Select an image for your post")
+
+        builder.setItems(options) { dialog, item ->
+            when {
+                options[item] == "Add New Post" -> {
+                    Intent(this, AddPostActivity::class.java).also {
+                        this.startActivity(it)
+                    }
+                }
+                options[item] == "Send Push Notification" -> {
+                    Intent(this, SendPushNotificationActivity::class.java).also {
+                        this.startActivity(it)
+                    }
+                }
+                options[item] == "Cancel" -> {
+                    dialog.dismiss()
+                }
+            }
+        }
+        builder.show()
     }
 
 

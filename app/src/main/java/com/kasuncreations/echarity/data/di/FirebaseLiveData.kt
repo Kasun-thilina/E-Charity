@@ -34,6 +34,4 @@ class FirebaseLiveData : LiveData<DataSnapshot?> {
             println(databaseError.toException())
         }
     }
-
-
 }

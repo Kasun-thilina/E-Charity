@@ -35,7 +35,7 @@ class HomeFragment : BaseFragment(), KodeinAware, Listner {
     override val kodein by lazy { (context as KodeinAware).kodein }
     private val factory: PostViewModelFactory by instance()
     private lateinit var viewModel: PostViewModel
-    private val factoryPreferences: SharedPreferences by instance(arg = CONSTANTS.PREF_NAME)
+    private val sharedPreferences: SharedPreferences by instance(arg = CONSTANTS.PREF_NAME)
 
     private lateinit var postsAdapter: PostsAdapter
     private lateinit var mLayoutManager: LinearLayoutManager
@@ -103,6 +103,8 @@ class HomeFragment : BaseFragment(), KodeinAware, Listner {
         mLayoutManager = LinearLayoutManager(context!!)
         rvPosts.layoutManager = mLayoutManager
         rvPosts.adapter = postsAdapter
+
+
     }
 
     private fun updateVote(count: Int, ID: Long, vote: Vote) {

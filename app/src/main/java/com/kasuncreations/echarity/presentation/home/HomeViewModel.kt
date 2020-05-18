@@ -13,7 +13,8 @@ class HomeViewModel : ViewModel() {
         FirebaseDatabase.getInstance()
     }
 
-    private val postsReference: Query = firebaseDatabase.getReference("posts").orderByChild("vote")
+    private val postsReference: Query =
+        firebaseDatabase.getReference("posts").orderByChild("voteCount")
     private val liveData = FirebaseLiveData(postsReference)
 
 

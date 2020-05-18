@@ -1,17 +1,22 @@
 package com.kasuncreations.echarity.presentation.auth
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.iid.FirebaseInstanceId
 import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.databinding.ActivityLoginBinding
 import com.kasuncreations.echarity.presentation.main.MainActivity
 import com.kasuncreations.echarity.utils.BaseActivity
+import com.kasuncreations.echarity.utils.CONSTANTS
+import com.kasuncreations.echarity.utils.CONSTANTS.PUSH_TOKEN
 import com.kasuncreations.echarity.utils.hideKeyboard
 import com.kasuncreations.echarity.utils.showToastLong
 import kotlinx.android.synthetic.main.activity_login.*
@@ -26,6 +31,8 @@ class LoginActivity : BaseActivity(), Listner, KodeinAware {
     private val factory: AuthViewModelFactory by instance()
     private lateinit var viewModel: AuthViewModel
     private lateinit var binding: ActivityLoginBinding
+    private val sharedPreferences: SharedPreferences by instance(arg = CONSTANTS.PREF_NAME)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +41,7 @@ class LoginActivity : BaseActivity(), Listner, KodeinAware {
         ButterKnife.bind(this)
         //auth = FirebaseAuth.getInstance()
         init()
+        initFCM()
     }
 
     private fun init() {
@@ -62,7 +70,8 @@ class LoginActivity : BaseActivity(), Listner, KodeinAware {
                 // startActivity(Intent(this, SignUpActivity::class.java))
             }
             R.id.btn_login -> {
-                // startActivity(Intent(this, MainActivity::class.java))
+
+
             }
 
         }
@@ -95,5 +104,12 @@ class LoginActivity : BaseActivity(), Listner, KodeinAware {
         }
     }
 
+    private fun initFCM() {
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+            val devicePushToken = it.token
+            sharedPreferences.edit().putString(PUSH_TOKEN, devicePushToken).apply()
+            Log.e("push", it?.token.toString())
+        }
+    }
 
 }

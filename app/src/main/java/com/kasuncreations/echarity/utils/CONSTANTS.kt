@@ -3,6 +3,8 @@ package com.kasuncreations.echarity.utils
 object CONSTANTS {
     const val PREF_NAME = "E-Charity"
     const val USER_ID = "user_id"
+    const val IS_ADMIN = "is_admin"
+    const val PUSH_TOKEN = "push_token"
     const val USER_DATA = "users"
     const val POSTS = "posts"
     const val LOCATION_NAME = "location_name"

@@ -77,6 +77,7 @@ class ChatFragment : BaseFragment(), KodeinAware, Listner {
 
                     override fun onFailure(error: Any) {
                         println("Failure : $error")
+                        context.showToastLong("Something Happend.PLease try again")
                         //  hideProgress()
                     }
                 })

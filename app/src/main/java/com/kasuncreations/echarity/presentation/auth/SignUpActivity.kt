@@ -68,10 +68,10 @@ class SignUpActivity : BaseActivity(), Listner, KodeinAware {
             binding.etSignUpUserConfirmPassword.error = "Please enter your password again"
             return
         }
-        if (confirmPW.isNotBlank() && confirmPW != password) {
-            binding.etSignUpUserConfirmPassword.error = "Passwords Doesn't Match"
-            return
-        }
+//        if (confirmPW.isNotBlank() && confirmPW != password) {
+//            binding.etSignUpUserConfirmPassword.error = "Passwords Doesn't Match"
+//            return
+//        }
         viewModel.signUp()
     }
 

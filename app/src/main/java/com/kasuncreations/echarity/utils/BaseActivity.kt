@@ -38,6 +38,15 @@ abstract class BaseActivity : AppCompatActivity() {
 
     }
 
+    fun setStatusBarColor(color: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor =
+                ContextCompat.getColor(
+                    this,
+                    color
+                )
+        }
+    }
     fun showProgress() {
         progress?.let {
             if (!it.isShowing) {

@@ -95,6 +95,14 @@
         <item name="android:elevation" tools:targetApi="lollipop">1dp</item>
     </style>
 
+    <style name="SettingsButtonStyle">
+        <item name="android:background">@drawable/bg_rounded_button</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:elevation" tools:targetApi="lollipop">1dp</item>
+    </style>
+
     <style name="ChatButtonStyle" parent="PrimaryButton">
         <item name="android:textSize">18sp</item>
         <item name="android:paddingTop">5dp</item>

@@ -67,16 +67,49 @@
                     tools:text="User name comes here " />
 
                 <Button
-                    android:id="@+id/btn_logout"
-                    style="@style/PrimaryButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:text="@string/label_sign_out"
+                    android:id="@+id/btn_settings"
+                    style="@style/SettingsButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginEnd="30dp"
+                    app:cornerRadius="20dp"
                     android:onClick="onLogout"
+                    android:text="Settings"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_up_user_name" />
+
+                <Button
+                    android:id="@+id/btn_about_the_developer"
+                    style="@style/SettingsButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:onClick="onLogout"
+                    app:cornerRadius="20dp"
+                    android:text="About The Developer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_settings" />
+
+                <Button
+                    android:id="@+id/btn_logout"
+                    style="@style/SettingsButtonStyle"
+                    app:cornerRadius="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:onClick="onLogout"
+                    android:text="@string/label_sign_out"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_about_the_developer" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

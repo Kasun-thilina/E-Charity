@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.kasuncreations.echarity.data.models.User
 import com.kasuncreations.echarity.utils.CONSTANTS
+import com.kasuncreations.echarity.utils.CONSTANTS.IS_ADMIN
 import com.kasuncreations.echarity.utils.CONSTANTS.USER_ID
 import io.reactivex.Completable
 
@@ -29,6 +30,12 @@ class FirebaseFunctions(val pref: SharedPreferences) {
             if (!emitter.isDisposed) {
                 if (it.isSuccessful) {
                     pref.edit().putString(USER_ID, firebaseAuth.currentUser!!.uid).apply()
+                    println(email)
+                    if (email == "admin@g.com") {
+                        pref.edit().putBoolean(IS_ADMIN, true).apply()
+                    } else {
+                        pref.edit().putBoolean(IS_ADMIN, false).apply()
+                    }
                     emitter.onComplete()
                 } else
                     emitter.onError(it.exception!!)

@@ -1,6 +1,7 @@
 package com.kasuncreations.echarity.presentation.profile
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.kasuncreations.echarity.presentation.auth.AuthViewModel
 import com.kasuncreations.echarity.presentation.auth.AuthViewModelFactory
 import com.kasuncreations.echarity.presentation.auth.LoginActivity
 import com.kasuncreations.echarity.utils.BaseFragment
+import com.kasuncreations.echarity.utils.CONSTANTS
 import com.kasuncreations.echarity.utils.dialog.alertDialog
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import org.kodein.di.Kodein
@@ -24,6 +26,7 @@ class ProfileFragment : BaseFragment(), KodeinAware {
     private val factory: AuthViewModelFactory by instance()
     private lateinit var viewModel: AuthViewModel
     override val kodein: Kodein by kodein()
+    private val sharedPreferences: SharedPreferences by instance(arg = CONSTANTS.PREF_NAME)
 
     companion object {
         const val TAG = "profile"
