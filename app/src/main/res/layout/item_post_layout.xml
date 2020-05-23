@@ -23,10 +23,12 @@
             <ImageView
                 android:id="@+id/iv_post_banner"
                 android:layout_width="match_parent"
-                android:layout_height="142dp"
+                android:layout_height="0dp"
                 android:src="@drawable/can_help"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/iv_post_profile_image" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_post_profile_image"
@@ -57,7 +59,8 @@
                 android:text="Title Goes Here"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_post_banner" />
+                app:layout_constraintTop_toBottomOf="@id/iv_post_banner"
+                app:layout_constraintBottom_toTopOf="@id/post_description" />
 
             <TextView
                 android:id="@+id/post_description"

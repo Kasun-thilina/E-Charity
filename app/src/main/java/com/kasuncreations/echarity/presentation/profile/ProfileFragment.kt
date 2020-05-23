@@ -16,6 +16,8 @@ import com.kasuncreations.echarity.presentation.auth.LoginActivity
 import com.kasuncreations.echarity.utils.BaseFragment
 import com.kasuncreations.echarity.utils.CONSTANTS
 import com.kasuncreations.echarity.utils.dialog.alertDialog
+import com.kasuncreations.echarity.utils.showToastLong
+import com.kasuncreations.echarity.utils.startActivity
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -62,7 +64,13 @@ class ProfileFragment : BaseFragment(), KodeinAware {
             }
 
         }
+        view.btn_about_the_developer.setOnClickListener {
+            context.startActivity<AboutTheDeveloperActivity>()
+        }
 
+        view.btn_settings.setOnClickListener {
+            context.showToastLong("Under Development")
+        }
         return view
     }
 

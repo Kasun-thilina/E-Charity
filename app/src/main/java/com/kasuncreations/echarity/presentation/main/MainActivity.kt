@@ -93,13 +93,14 @@ class MainActivity : BaseActivity(), KodeinAware {
                     .commit()
             }
             R.id.btn_fab -> {
-                if (isAdmin!!) {
-                    showOptions()
-                } else {
-                    Intent(this, AddPostActivity::class.java).also {
-                        this.startActivity(it)
-                    }
-                }
+                showOptions()
+//                if (isAdmin!!) {
+//                    showOptions()
+//                } else {
+//                    Intent(this, AddPostActivity::class.java).also {
+//                        this.startActivity(it)
+//                    }
+//                }
             }
         }
     }

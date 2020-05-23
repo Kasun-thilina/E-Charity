@@ -11,6 +11,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.databinding.ActivityLoginBinding
 import com.kasuncreations.echarity.presentation.main.MainActivity
@@ -110,6 +111,16 @@ class LoginActivity : BaseActivity(), Listner, KodeinAware {
             sharedPreferences.edit().putString(PUSH_TOKEN, devicePushToken).apply()
             Log.e("push", it?.token.toString())
         }
+
+        //FCM notifications
+        FirebaseMessaging.getInstance().subscribeToTopic("all")
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    showToastLong("Subscription to Emergency Notification Service failed")
+                }
+                showToastLong("Successfully Subscribed to Emergency Notification Service")
+
+            }
     }
 
 }

@@ -31,6 +31,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
+        <activity android:name=".presentation.profile.AboutTheDeveloperActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -53,6 +54,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".presentation.chat.ConversationViewActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
@@ -65,7 +67,6 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity android:name=".presentation.fcm.SendPushNotificationActivity" />
-
         <activity
             android:name=".presentation.post.AddPostActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />

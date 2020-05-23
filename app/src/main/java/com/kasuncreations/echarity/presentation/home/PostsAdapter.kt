@@ -2,6 +2,7 @@ package com.kasuncreations.echarity.presentation.home
 
 import android.content.Context
 import android.content.Intent
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -183,6 +184,12 @@ class PostsAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun onBind(position: Int) {
+            val displayMetrics: DisplayMetrics = mContext.resources.displayMetrics
+            val width = displayMetrics.widthPixels
+            val height = displayMetrics.heightPixels
+            val params: ViewGroup.LayoutParams = itemView.iv_post_banner.layoutParams
+            params.height = (height * 0.175).toInt()
+            itemView.iv_post_banner.layoutParams = params
             itemView.tv_post_title.text = postList[position].tittle.toString()
             itemView.post_description.text = postList[position].description.toString()
             if (postList[position].imageUri.isNullOrBlank()) {
