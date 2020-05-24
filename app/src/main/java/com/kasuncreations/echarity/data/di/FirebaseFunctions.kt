@@ -62,6 +62,8 @@ class FirebaseFunctions(val pref: SharedPreferences) {
                             .setValue(user).addOnCompleteListener { dbTask ->
                                 if (dbTask.isSuccessful) {
                                     emitter.onComplete()
+                                    pref.edit().putString(USER_ID, firebaseAuth.currentUser!!.uid)
+                                        .apply()
                                 } else {
                                     emitter.onError(it.exception!!)
                                 }

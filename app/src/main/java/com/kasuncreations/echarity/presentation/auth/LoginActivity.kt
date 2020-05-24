@@ -42,7 +42,6 @@ class LoginActivity : BaseActivity(), Listner, KodeinAware {
         ButterKnife.bind(this)
         //auth = FirebaseAuth.getInstance()
         init()
-        initFCM()
     }
 
     private fun init() {

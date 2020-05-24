@@ -82,9 +82,10 @@ class ChatFragment : BaseFragment(), KodeinAware, Listner {
         rvConversations.adapter = messageViewAdapter
 
         btnAIChat?.setOnClickListener {
+            showProgress()
             Kommunicate.init(context, getString(R.string.KOMMUNICATE_APP_ID))
             //showProgress()
-            KmConversationBuilder(context)
+            KmConversationBuilder(context).setSingleConversation(false)
                 .launchConversation(object : KmCallback {
                     override fun onSuccess(message: Any) {
                         println("Success : $message")
@@ -132,7 +133,7 @@ class ChatFragment : BaseFragment(), KodeinAware, Listner {
 
     override fun onResume() {
         super.onResume()
-        //  hideProgress()
+        hideProgress()
     }
 
     override fun onStarted() {

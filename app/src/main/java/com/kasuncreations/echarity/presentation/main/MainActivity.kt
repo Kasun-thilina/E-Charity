@@ -4,10 +4,13 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.presentation.chat.ChatFragment
 import com.kasuncreations.echarity.presentation.fcm.SendPushNotificationActivity
@@ -38,7 +41,7 @@ class MainActivity : BaseActivity(), KodeinAware {
             showToastLong("Logged in as Administrator")
         }
 //        setStatusBarColor(R.color.colorWhite)
-
+        initFCM()
     }
 
     private fun setUpBottomNavigation() {
@@ -94,7 +97,7 @@ class MainActivity : BaseActivity(), KodeinAware {
             }
             R.id.btn_fab -> {
                 showOptions()
-                showToastLong("This option is enabled for all user for testing purpose!")
+                showToastLong("PUSH NOTIFICATION option is enabled for all users for testing purposes!")
 //                if (isAdmin!!) {
 //                    showOptions()
 //                } else {
@@ -137,5 +140,22 @@ class MainActivity : BaseActivity(), KodeinAware {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    private fun initFCM() {
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+            val devicePushToken = it.token
+            sharedPreferences.edit().putString(CONSTANTS.PUSH_TOKEN, devicePushToken).apply()
+            Log.e("push", it?.token.toString())
+        }
+
+        //FCM notifications
+        FirebaseMessaging.getInstance().subscribeToTopic("all")
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    showToastLong("Subscription to Emergency Notification Service failed")
+                }
+                showToastLong("Successfully Subscribed to Emergency Notification Service")
+
+            }
+    }
 
 }
