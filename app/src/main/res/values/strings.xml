@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">E-Charity</string>
-    <string name="KOMMUNICATE_APP_ID">29613c61c751963d7ff7465a4812caf81</string>
+    <!--    <string name="KOMMUNICATE_APP_ID">29613c61c751963d7ff7465a4812caf81</string>-->
+    <string name="KOMMUNICATE_APP_ID">98cc6d6f081cfeccf2e0a1edb7c0a358</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_profile"><Pr>    </Pr>ofile</string>

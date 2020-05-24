@@ -6,14 +6,12 @@ import androidx.lifecycle.ViewModel
 import com.kasuncreations.echarity.data.models.Post
 import com.kasuncreations.echarity.data.models.Vote
 import com.kasuncreations.echarity.data.repository.PostsRepository
-import com.kasuncreations.echarity.data.repository.UserRepository
 import com.kasuncreations.echarity.presentation.auth.Listner
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class PostViewModel(
-    val userRepository: UserRepository,
     val postsRepository: PostsRepository,
     val application: Application
 ) : ViewModel() {

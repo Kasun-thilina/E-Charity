@@ -1,18 +1,15 @@
-package com.kasuncreations.echarity.presentation.post
+package com.kasuncreations.echarity.presentation.profile
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.kasuncreations.echarity.data.repository.PostsRepository
 import com.kasuncreations.echarity.data.repository.UserRepository
 
-class PostViewModelFactory(
+class UserViewModelFactory(
     private val userRepository: UserRepository,
-    private val postsRepository: PostsRepository,
     var application: Application
 ) : ViewModelProvider.NewInstanceFactory() {
-
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return PostViewModel(postsRepository, application) as T
+        return UserViewModel(userRepository, application) as T
     }
 }

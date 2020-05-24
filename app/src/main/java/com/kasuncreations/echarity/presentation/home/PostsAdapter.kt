@@ -7,12 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.database.DataSnapshot
 import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.data.models.Post
+import com.kasuncreations.echarity.data.models.User
 import com.kasuncreations.echarity.data.models.Vote
 import com.kasuncreations.echarity.presentation.chat.ConversationViewActivity
+import com.kasuncreations.echarity.presentation.profile.UserViewModel
 import com.kasuncreations.echarity.utils.CONSTANTS.USER_ID
 import kotlinx.android.synthetic.main.item_post_layout.view.*
 
@@ -27,6 +33,9 @@ class PostsAdapter(
     var mContext: Context,
     val userID: String,
     var postList: MutableList<Post>,
+    var userViewModel: UserViewModel,
+    var userLiveData: LiveData<DataSnapshot?>?,
+    var viewLifecycleOwner: LifecycleOwner,
     val onVoteCast: (Int, Long, Vote) -> Unit
 ) :
     RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
@@ -177,13 +186,22 @@ class PostsAdapter(
 
         holder.itemView.btn_send_msg.setOnClickListener {
             val intent = Intent(mContext, ConversationViewActivity::class.java)
-            intent.putExtra(USER_ID, voteUserID)
+            intent.putExtra(USER_ID, postList[position].userId)
             mContext.startActivity(intent)
         }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun onBind(position: Int) {
+            userViewModel.setQuery(postList[position].userId!!)
+            userLiveData = userViewModel.getDataSnapshotLiveData()
+            userLiveData!!.observe(viewLifecycleOwner, Observer {
+                val user = it!!.getValue(User::class.java)!!
+                itemView.tv_user_name.text = "${user.first_name}\n${user.last_name}"
+                if (!user.avatar.isNullOrEmpty()) {
+                    Glide.with(mContext).load(user.avatar).into(itemView.iv_post_profile_image)
+                }
+            })
             val displayMetrics: DisplayMetrics = mContext.resources.displayMetrics
             val width = displayMetrics.widthPixels
             val height = displayMetrics.heightPixels

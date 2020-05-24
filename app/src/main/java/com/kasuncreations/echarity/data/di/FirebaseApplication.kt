@@ -8,6 +8,7 @@ import com.kasuncreations.echarity.data.repository.UserRepository
 import com.kasuncreations.echarity.presentation.auth.AuthViewModelFactory
 import com.kasuncreations.echarity.presentation.chat.ChatViewModelFactory
 import com.kasuncreations.echarity.presentation.post.PostViewModelFactory
+import com.kasuncreations.echarity.presentation.profile.UserViewModelFactory
 import com.kasuncreations.echarity.utils.CONSTANTS
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -37,6 +38,7 @@ class FirebaseApplication : Application(), KodeinAware {
             )
         }
         bind() from provider { ChatViewModelFactory(instance(), this@FirebaseApplication) }
+        bind() from provider { UserViewModelFactory(instance(), this@FirebaseApplication) }
         bind<FirebaseFunctions>() with singleton {
             val pref: SharedPreferences by this.kodein.instance(arg = CONSTANTS.PREF_NAME)
             FirebaseFunctions(pref)

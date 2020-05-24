@@ -16,6 +16,7 @@ import com.kasuncreations.echarity.presentation.auth.Listner
 import com.kasuncreations.echarity.utils.BaseActivity
 import com.kasuncreations.echarity.utils.CONSTANTS
 import com.kasuncreations.echarity.utils.CONSTANTS.USER_ID
+import com.kasuncreations.echarity.utils.CONSTANTS.USER_NAME
 import com.kasuncreations.echarity.utils.showToastLong
 import kotlinx.android.synthetic.main.activity_chat_view.*
 import org.kodein.di.KodeinAware
@@ -40,12 +41,13 @@ class ConversationViewActivity : BaseActivity(), KodeinAware, Listner {
         setContentView(R.layout.activity_chat_view)
         setSupportActionBar(toolbar_chat_view)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        //supportActionBar?.title = getString(R.string.btn_label_add_post)
         ButterKnife.bind(this)
         viewModel = ViewModelProviders.of(this, factory).get(ChatViewModel::class.java)
         viewModel.listner = this
         receiverID = intent.getStringExtra(USER_ID)!!
         senderID = sharedPreferences.getString(USER_ID, "")!!
+        supportActionBar?.title = intent.getStringExtra(USER_NAME)
+
         initView()
         init()
     }

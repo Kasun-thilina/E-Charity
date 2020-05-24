@@ -94,6 +94,7 @@ class MainActivity : BaseActivity(), KodeinAware {
             }
             R.id.btn_fab -> {
                 showOptions()
+                showToastLong("This option is enabled for all user for testing purpose!")
 //                if (isAdmin!!) {
 //                    showOptions()
 //                } else {
@@ -130,6 +131,10 @@ class MainActivity : BaseActivity(), KodeinAware {
             }
         }
         builder.show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
 

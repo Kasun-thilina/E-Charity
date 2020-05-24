@@ -32,8 +32,12 @@ import com.google.firebase.database.DataSnapshot
 import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.data.models.Post
 import com.kasuncreations.echarity.presentation.home.HomeViewModel
+import com.kasuncreations.echarity.presentation.profile.UserViewModel
+import com.kasuncreations.echarity.presentation.profile.UserViewModelFactory
 import com.kasuncreations.echarity.utils.*
 import com.kasuncreations.echarity.utils.dialog.alertDialog
+import org.kodein.di.KodeinAware
+import org.kodein.di.generic.instance
 
 /**
  * Map Fragment to display posts inside a map within a 10Km radius to the user location
@@ -42,7 +46,7 @@ import com.kasuncreations.echarity.utils.dialog.alertDialog
  * @author kasun.thilina.t@gmail.com
  * @since 2nd MAY 2020
  */
-class MapFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
+class MapFragment : BaseFragment(), OnMapReadyCallback, LocationListener, KodeinAware,
     GoogleMap.OnMarkerClickListener {
 
 
@@ -51,6 +55,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
         fun newInstance() = MapFragment()
     }
 
+    override val kodein by lazy { (context as KodeinAware).kodein }
     private lateinit var mMap: GoogleMap
     private lateinit var mMapView: MapView
     private var paused = false
@@ -63,6 +68,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
     private lateinit var sortedPostsList: MutableList<Post>
     private lateinit var locationManager: LocationManager
     private lateinit var sortedPostsMap: Map<Marker, Post>
+    private val userFactory: UserViewModelFactory by instance()
+    private lateinit var userViewModel: UserViewModel
+    private var userLiveData: LiveData<DataSnapshot?>? = null
     private val RADIUS = 50000.0 //10km
 
     override fun onCreateView(
@@ -75,6 +83,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
         mMapView.onCreate(savedInstanceState)
         mMapView.getMapAsync(this)
         rvPosts = view.findViewById(R.id.rv_details)
+        userViewModel = ViewModelProviders.of(this, userFactory).get(UserViewModel::class.java)
         postsList = mutableListOf()
         sortedPostsMap = HashMap()
         sortedPostsList = mutableListOf()
@@ -273,7 +282,13 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
         rvPosts.visibility = View.VISIBLE
         sortedPostsList.clear()
         sortedPostsList.add(sortedPostsMap[marker]!!)
-        mapDetailsAdapter = MapDetailsAdapter(context!!, sortedPostsList)
+        mapDetailsAdapter = MapDetailsAdapter(
+            context!!,
+            sortedPostsList,
+            userViewModel,
+            userLiveData,
+            viewLifecycleOwner
+        )
         mLayoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
         rvPosts.layoutManager = mLayoutManager
         rvPosts.adapter = mapDetailsAdapter

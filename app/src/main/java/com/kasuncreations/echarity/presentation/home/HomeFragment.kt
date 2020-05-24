@@ -18,6 +18,8 @@ import com.kasuncreations.echarity.data.models.Vote
 import com.kasuncreations.echarity.presentation.auth.Listner
 import com.kasuncreations.echarity.presentation.post.PostViewModel
 import com.kasuncreations.echarity.presentation.post.PostViewModelFactory
+import com.kasuncreations.echarity.presentation.profile.UserViewModel
+import com.kasuncreations.echarity.presentation.profile.UserViewModelFactory
 import com.kasuncreations.echarity.utils.BaseFragment
 import com.kasuncreations.echarity.utils.CONSTANTS
 import com.kasuncreations.echarity.utils.showToastLong
@@ -36,7 +38,9 @@ class HomeFragment : BaseFragment(), KodeinAware, Listner {
     private val factory: PostViewModelFactory by instance()
     private lateinit var viewModel: PostViewModel
     private val sharedPreferences: SharedPreferences by instance(arg = CONSTANTS.PREF_NAME)
-
+    private val userFactory: UserViewModelFactory by instance()
+    private lateinit var userViewModel: UserViewModel
+    private var userLiveData: LiveData<DataSnapshot?>? = null
     private lateinit var postsAdapter: PostsAdapter
     private lateinit var mLayoutManager: LinearLayoutManager
     private lateinit var rvPosts: RecyclerView
@@ -55,6 +59,8 @@ class HomeFragment : BaseFragment(), KodeinAware, Listner {
         val view = inflater.inflate(R.layout.fragment_home, null)
         rvPosts = view.findViewById(R.id.rv_posts)
         viewModel = ViewModelProviders.of(this, factory).get(PostViewModel::class.java)
+        userViewModel = ViewModelProviders.of(this, userFactory).get(UserViewModel::class.java)
+
         viewModel.listner = this
         initView()
         loadData()
@@ -96,7 +102,10 @@ class HomeFragment : BaseFragment(), KodeinAware, Listner {
         postsAdapter = PostsAdapter(
             context!!,
             firebaseAuth.currentUser!!.uid,
-            mutableListOf()
+            mutableListOf(),
+            userViewModel,
+            userLiveData,
+            viewLifecycleOwner
         ) { count, ID, vote ->
             updateVote(count, ID, vote)
         }

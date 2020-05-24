@@ -8,5 +8,6 @@ package com.kasuncreations.echarity.data.models
  */
 data class User(
     var first_name: String? = null,
-    var last_name: String? = null
+    var last_name: String? = null,
+    var avatar: String? = null
 )

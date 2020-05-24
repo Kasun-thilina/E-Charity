@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.kasuncreations.echarity.R
 import com.kasuncreations.echarity.data.models.Chat
+import com.kasuncreations.echarity.data.models.User
 import com.kasuncreations.echarity.presentation.auth.Listner
+import com.kasuncreations.echarity.presentation.profile.UserViewModel
+import com.kasuncreations.echarity.presentation.profile.UserViewModelFactory
 import com.kasuncreations.echarity.utils.BaseFragment
 import com.kasuncreations.echarity.utils.CONSTANTS
 import com.kasuncreations.echarity.utils.showToastLong
@@ -29,11 +32,14 @@ class ChatFragment : BaseFragment(), KodeinAware, Listner {
     var btnAIChat: Button? = null
     override val kodein by lazy { (context as KodeinAware).kodein }
     private lateinit var messageViewAdapter: MessageViewAdapter
+    private val userFactory: UserViewModelFactory by instance()
+    private lateinit var userViewModel: UserViewModel
     private lateinit var mLayoutManager: LinearLayoutManager
     private lateinit var rvConversations: RecyclerView
     private val sharedPreferences: SharedPreferences by instance(arg = CONSTANTS.PREF_NAME)
     private lateinit var messagesViewModel: MessagesViewModel
     private var liveData: LiveData<DataSnapshot?>? = null
+    private var userLiveData: LiveData<DataSnapshot?>? = null
     private lateinit var userID: String
 
     companion object {
@@ -51,6 +57,8 @@ class ChatFragment : BaseFragment(), KodeinAware, Listner {
         rvConversations = view.findViewById(R.id.rv_conversations)
         btnAIChat = view.findViewById(R.id.btn_chatbot)
         messagesViewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
+        userViewModel = ViewModelProviders.of(this, userFactory).get(UserViewModel::class.java)
+
         userID = sharedPreferences.getString(CONSTANTS.USER_ID, "")!!
 
         messagesViewModel.setQuery(userID)
@@ -61,7 +69,14 @@ class ChatFragment : BaseFragment(), KodeinAware, Listner {
 
     private fun initView() {
 
-        messageViewAdapter = MessageViewAdapter(context!!, mutableListOf(), userID)
+        messageViewAdapter = MessageViewAdapter(
+            context!!,
+            mutableListOf(),
+            userViewModel,
+            userLiveData,
+            viewLifecycleOwner,
+            userID
+        )
         mLayoutManager = LinearLayoutManager(context!!)
         rvConversations.layoutManager = mLayoutManager
         rvConversations.adapter = messageViewAdapter
@@ -85,15 +100,30 @@ class ChatFragment : BaseFragment(), KodeinAware, Listner {
     }
 
     private fun loadData() {
+        showProgress()
         liveData = messagesViewModel.getDataSnapshotLiveData()
         liveData!!.observe(viewLifecycleOwner, Observer {
             messageViewAdapter.msgList.clear()
-            it!!.children.map { chat ->
+            it!!.children.mapIndexed() { index, chat ->
                 messageViewAdapter.msgList.add(chat.getValue(Chat::class.java)!!)
+                //loadUserData(messageViewAdapter.msgList[index].senderID!!)
             }
+            messageViewAdapter.msgList.reverse()
             messageViewAdapter.notifyDataSetChanged()
+            hideProgress()
         })
     }
+
+    private fun loadUserData(userID: String) {
+        userViewModel.setQuery(userID)
+        userLiveData = userViewModel.getDataSnapshotLiveData()
+        userLiveData!!.observe(viewLifecycleOwner, Observer {
+            val user = it!!.getValue(User::class.java)!!
+            //messageViewAdapter.userList.add(user)
+        })
+//        userLiveData!!.removeObservers(viewLifecycleOwner)
+    }
+
 
     override fun onPause() {
         super.onPause()

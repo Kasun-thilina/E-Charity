@@ -1,5 +1,6 @@
 package com.kasuncreations.echarity.data.repository
 
+import android.net.Uri
 import com.kasuncreations.echarity.data.di.FirebaseFunctions
 
 /**
@@ -18,6 +19,8 @@ class UserRepository(
         firebaseFunc.signUp(email, password, firstName, lastName)
 
     fun getCurrentUser() = firebaseFunc.currentUser()
+
+    fun updateDP(uri: Uri) = firebaseFunc.updateDP(uri)
 
     fun logout() = firebaseFunc.signOut()
 }
